@@ -8,11 +8,11 @@ export const SearchBar = (onSearch, setCountryFilter) => {
 	// const formatItem = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
 
 	// useEffect(() => {
-	// 	setCountryFilter(formatItem)
-	// },[setCountryFilter, formatItem])
+	// 	setItemFilter(formatItem)
+	// },[setItemFilter, formatItem])
 
     // useEffect(() => {
-    //     dispatch(filter({ filterType: "**", filterValue: *** }));
+    //     dispatch(filter({ filterType: "Name", filterValue: *** }));
     //     if (**.length >= 30) {
     //       dispatch(get**(**)).then((res) => {
     //         setSearchResult(res.payload);
@@ -22,18 +22,18 @@ export const SearchBar = (onSearch, setCountryFilter) => {
     //   }, [dispatch, ]);
 
 
-      function handleSearch(name) {
-        dispatch(getCountryByName(name)).then((res) => {
-          setSearchResult(res.payload);
-        });
-      }
+    //   function handleSearch(name) {
+    //     dispatch(getItemByName(name)).then((res) => {
+    //       setSearchResult(res.payload);
+    //     });
+    //   }
   return (
     <div 
     className={style.content}
     >
   <input
     type='text'
-    // name={item}
+    name={item}
     onChange={e => setItem(e.target.value)}
     className={style.input}
     placeholder="Insertar búsqueda"
