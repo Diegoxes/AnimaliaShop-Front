@@ -18,9 +18,7 @@ export const SearchBar = (onSearch, setCountryFilter) => {
     //         setSearchResult(res.payload);
     //       });
     //     }
-    //     dispatch(orderName("Ascendente"));
-    //   }, [dispatch, ]);
-
+    
 
     //   function handleSearch(name) {
     //     dispatch(getItemByName(name)).then((res) => {
