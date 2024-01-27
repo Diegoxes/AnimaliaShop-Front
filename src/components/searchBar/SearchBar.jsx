@@ -2,40 +2,30 @@ import React, { useState, useEffect } from 'react';
 import style from './SearchBar.module.css';
 
 
-export const SearchBar = (onSearch, setCountryFilter) => {
+export const SearchBar = () => {
 
-    // const [item, setItem] = useState('');
-	// const formatItem = item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+    const [item, setItem] = useState('');
+  const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	setItemFilter(formatItem)
-	// },[setItemFilter, formatItem])
+  const handleChange = (e) => {
+    const searchTerm = e.target.value;
+    setItem(searchTerm);
+    dispatch(filterName(searchTerm));
 
-    // useEffect(() => {
-    //     dispatch(filter({ filterType: "Name", filterValue: *** }));
-    //     if (**.length >= 30) {
-    //       dispatch(get**(**)).then((res) => {
-    //         setSearchResult(res.payload);
-    //       });
-    //     }
-    
-
-    //   function handleSearch(name) {
-    //     dispatch(getItemByName(name)).then((res) => {
-    //       setSearchResult(res.payload);
-    //     });
-    //   }
+  };
   return (
-    <div 
-    className={style.content}
-    >
-  <input
-    type='text'
-    name={item}
-    onChange={e => setItem(e.target.value)}
-    className={style.input}
-    placeholder="Insertar búsqueda"
-  />
+    <div>
+      <form>
+        <input
+          type="text"
+          value={item}
+          name="search"
+          onChange={handleChange}
+          id="search"
+          placeholder="Buscar producto"
+          className={style.input}
+        />
+      </form>
     </div>
 )
 }
