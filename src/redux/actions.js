@@ -5,16 +5,16 @@ FILTER_BY_NAME
 } from "./actionTypes";
 
 
-export const filterName = (dogsName) =>{
+export const filterName = (itemName) =>{
     return async function (dispatch) {
       try {
-        const dog = await axios.get(`http://localhost:3001/dogs?name=${dogsName}`);
+        const item = await axios.get(`URL`);
         dispatch({
             type:FILTER_BY_NAME , 
-            payload:dog.data
+            payload:item.data
         });
       } catch (error) {
-          console.error("Error fetching dogs:", error);
+          console.error("Error fetching item:", error);
         }
     ;
   }
