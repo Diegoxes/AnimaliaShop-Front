@@ -1,11 +1,16 @@
 import './App.css';
 import React from 'react';
+import { SearchBar } from './components/searchBar/SearchBar';
+import Cards  from './components/cards/Cards';
 
 function App() {
   return (
-    <div>
+    <div >
       <div>
-        hola
+        <SearchBar />
+      </div>
+      <div>
+        <Cards />
       </div>
     </div>
   );
