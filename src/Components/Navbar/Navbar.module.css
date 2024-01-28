@@ -1,0 +1,20 @@
+
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #c5a36c;
+    z-index: 1000; /* Asegura que la barra de navegación esté por encima de otros elementos */
+    color: black;
+  } 
+
+  nav div:nth-child(2) {
+    display: flex;
+    gap: 1rem;
+  }

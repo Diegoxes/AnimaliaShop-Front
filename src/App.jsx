@@ -1,13 +1,22 @@
-import './App.css'
+import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Tienda from "./pages/Tienda";
 
 function App() {
-  
-
   return (
-    <>
-     
-    </>
-  )
+    <Router>
+      <div>
+        <div>
+          <Routes>
+          <Route  path='/tienda' element={<Tienda/>}/>
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
+
+// // Ejemplo  <Route path="/" element={<Products />} />
