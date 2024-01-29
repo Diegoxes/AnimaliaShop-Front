@@ -5,7 +5,7 @@ import styles from "./Navbar.module.css";
 const options = [
   { name: "Inicio", to: "/" },
   { name: "Sobre nosotros", to: "/about" },
-  { name: "Tienda", to: "/store" },
+  { name: "Tienda", to: "/tienda" },
   { name: "Testimonios", to: "/testimonials" },
   { name: "Contacto", to: "/contact" },
 ];

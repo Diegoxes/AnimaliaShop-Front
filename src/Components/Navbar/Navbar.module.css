@@ -9,9 +9,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #d0902ac0;
+    background-color: #b4870cc0;
     z-index: 1000;
-    color: black;
+    color: rgb(254, 254, 254);
     height: 70px;
   } 
 
@@ -57,7 +57,7 @@ a:-webkit-any-link {
 }
 
 .logo {
-  color: rgb(129, 54, 0);
+  color: rgb(98, 41, 1);
   font-size: 40px;
   font-weight: bold;
 }
