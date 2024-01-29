@@ -6,7 +6,8 @@ import style from "./tienda.module.css";
 import { changePage } from "../../redux/actions";
 
 const Tienda = () => {
-  const enumeration = useSelector((state) => state.pageNumbers);
+  const currentPage = useSelector((state) => state.currentPage);
+  const totalProductos = useSelector((state) => state.totalProductos);
 
   const dispatch = useDispatch();
 
@@ -25,13 +26,13 @@ const Tienda = () => {
           <div>
             <Cards />
             <div className={style.Paginate}>
-              <button name='prev' onClick={paginate}>
+              <button className={style.PrevPage} name='prev' onClick={paginate}>
                 Prev
               </button>
-              {enumeration?.map((enumerate) => (
-                <p>{enumerate}</p>
-              ))}
-              <button name='next' onClick={paginate}>
+              <span className={style.Enumeration}>
+                {currentPage + 1} / {totalProductos}
+              </span>
+              <button className={style.NextPage} name='next' onClick={paginate}>
                 Next
               </button>
             </div>

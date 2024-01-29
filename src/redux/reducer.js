@@ -13,11 +13,11 @@ const initialState = {
   filteredProductos: [],
   filter: false,
   currentPage: 0,
-  pageNumbers: [],
+  totalProductos: 0,
 };
 
 const rootReducer = (state = initialState, action) => {
-  const ITEM_PER_PAGE = 3;
+  const ITEM_PER_PAGE = 5;
   switch (action.type) {
     case SET_PRODUCTS:
       return {
@@ -25,6 +25,9 @@ const rootReducer = (state = initialState, action) => {
         productos: [...action.payload].splice(0, ITEM_PER_PAGE),
         backupProductos: action.payload,
         filteredProductos: action.payload,
+        totalProductos: Math.ceil(
+          [...state.backupProductos].length / ITEM_PER_PAGE
+        ),
       };
 
     case FILTER_BY_NAME:
@@ -32,6 +35,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         filteredProductos: action.payload,
         productos: action.payload,
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
       };
 
     case RESTART:
@@ -39,6 +43,9 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         productos: [...state.backupProductos].splice(0, ITEM_PER_PAGE),
         filteredProductos: [...state.backupProductos],
+        totalProductos: Math.ceil(
+          [...state.backupProductos].length / ITEM_PER_PAGE
+        ),
       };
 
     case PAGINATION:
@@ -49,6 +56,30 @@ const rootReducer = (state = initialState, action) => {
           ? nextPage * ITEM_PER_PAGE
           : prevPage * ITEM_PER_PAGE;
 
+      if (action.filter) {
+        if (
+          action.payload === "next" &&
+          firstIndex >= state.backupProductos.length
+        ) {
+          return state;
+        }
+
+        if (action.payload === "prev" && prevPage < 0) return state;
+
+        return {
+          ...state,
+          productos: [...state.filteredProductos].splice(
+            firstIndex,
+            ITEM_PER_PAGE
+          ),
+          currentPage: action.payload === "next" ? nextPage : prevPage,
+          filter: true,
+          totalProductos: Math.ceil(
+            [...state.filteredProductos].length / ITEM_PER_PAGE
+          ),
+        };
+      }
+
       if (
         action.payload === "next" &&
         firstIndex >= state.backupProductos.length
@@ -56,22 +87,14 @@ const rootReducer = (state = initialState, action) => {
         return state;
       if (action.payload === "prev" && prevPage < 0) return state;
 
-      // Generación manual de números de página
-      const totalPages = Math.ceil(
-        state.backupProductos.length / ITEM_PER_PAGE
-      );
-      const pageNumbers = [];
-
-      for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-      }
-
       return {
         ...state,
         productos: [...state.backupProductos].splice(firstIndex, ITEM_PER_PAGE),
         currentPage: action.payload === "next" ? nextPage : prevPage,
         filter: false,
-        pageNumbers,
+        totalProductos: Math.ceil(
+          [...state.backupProductos].length / ITEM_PER_PAGE
+        ),
       };
 
     // case GET_TITLES:
