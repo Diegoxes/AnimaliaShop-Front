@@ -1,10 +1,12 @@
-import { FILTER_BY_NAME,
-// GET_BY_ID,
-// GET_TITLES,
-, SET_PRODUCTS } from "./actionTypes";
+import {
+  FILTER_BY_NAME,
+  // GET_BY_ID,
+  // GET_TITLES,
+  SET_PRODUCTS,
+} from "./actionTypes";
 
 const initialState = {
-  titles:[],
+  titles: [],
   productos: [],
   backupProductos: [],
 };
@@ -19,21 +21,21 @@ const rootReducer = (state = initialState, action) => {
         backupProductos: action.payload,
       };
 
-      case FILTER_BY_NAME:
-        return {
-          ...state,
-          titles: action.payload,
-        }
-        // case GET_TITLES:
-        //   return {
-        //     ...state,
-        //     Alltitle: action.payload,
-        //   };
-          // case GET_BY_ID:
-          //   return {
-          //     ...state,
-          //     titleId: action.payload,
-          //   };
+    case FILTER_BY_NAME:
+      return {
+        ...state,
+        productos: action.payload,
+      };
+    // case GET_TITLES:
+    //   return {
+    //     ...state,
+    //     Alltitle: action.payload,
+    //   };
+    // case GET_BY_ID:
+    //   return {
+    //     ...state,
+    //     titleId: action.payload,
+    //   };
 
     default:
       return {
