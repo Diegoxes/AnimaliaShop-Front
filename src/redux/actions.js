@@ -1,6 +1,11 @@
 import axios from "axios";
 
-import { FILTER_BY_NAME, SET_PRODUCTS } from "./actionTypes";
+import {
+  FILTER_BY_NAME,
+  SET_PRODUCTS,
+  RESTART,
+  PAGINATION,
+} from "./actionTypes";
 
 const URL = "http://localhost:3001";
 
@@ -34,6 +39,29 @@ export const filterName = (name) => {
       );
     }
   };
+};
+
+export const restart = () => async (dispatch) => {
+  try {
+    return dispatch({
+      type: RESTART,
+    });
+  } catch (error) {
+    alert(error.response.data.error);
+  }
+};
+
+export const changePage = (order) => async (dispatch) => {
+  console.log(order);
+
+  try {
+    return dispatch({
+      type: PAGINATION,
+      payload: order,
+    });
+  } catch (error) {
+    alert(error.response.data.error);
+  }
 };
 
 //   export const getById = (id) => {

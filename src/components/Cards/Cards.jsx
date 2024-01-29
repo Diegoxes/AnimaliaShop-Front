@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductos } from "../../redux/actions";
+import { changePage, getProductos } from "../../redux/actions";
 import Card from "../Card/Card";
 import style from "./Cards.module.css";
 
