@@ -1,0 +1,5 @@
+.Container {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+}
