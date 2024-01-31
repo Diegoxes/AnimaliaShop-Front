@@ -4,6 +4,7 @@ import { SearchBar } from "../../components/searchBar/SearchBar";
 import Cards from "../../components/Cards/Cards";
 import style from "./tienda.module.css";
 import { changePage } from "../../redux/actions";
+import PaginationButtons from "../../components/PaginationButtons";
 
 const Tienda = () => {
   const currentPage = useSelector((state) => state.currentPage);
@@ -25,17 +26,7 @@ const Tienda = () => {
           <SearchBar />
           <div>
             <Cards />
-            <div className={style.Paginate}>
-              <button className={style.PrevPage} name='prev' onClick={paginate}>
-                Prev
-              </button>
-              <span className={style.Enumeration}>
-                {currentPage + 1} / {totalProductos}
-              </span>
-              <button className={style.NextPage} name='next' onClick={paginate}>
-                Next
-              </button>
-            </div>
+            <PaginationButtons />
           </div>
         </div>
       </div>

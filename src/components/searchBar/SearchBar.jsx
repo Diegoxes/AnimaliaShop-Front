@@ -19,7 +19,7 @@ export const SearchBar = () => {
     }
   };
   return (
-    <div>
+    <div className={style.contentall}>
       <form onSubmit={handleSearch}>
         <input
           type='text'
@@ -30,7 +30,9 @@ export const SearchBar = () => {
           placeholder='Buscar producto'
           className={style.input}
         />
-        <button type='submit'>Buscar</button>
+        <button type='submit' className={style.button}>
+          Buscar
+        </button>
       </form>
     </div>
   );
