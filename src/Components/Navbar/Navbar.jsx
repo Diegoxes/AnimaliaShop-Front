@@ -11,6 +11,7 @@ const options = [
   { name: "Contacto", to: "/contact" },
 ];
 
+
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
