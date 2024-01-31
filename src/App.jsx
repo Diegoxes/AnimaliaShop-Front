@@ -1,10 +1,14 @@
-import "./App.css";
+// import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Tienda from "./pages/Tienda";
+// import Tienda from "./pages/Tienda";
+
+
+
 
 function App() {
   return (
+
     <Router>
       <div>
         

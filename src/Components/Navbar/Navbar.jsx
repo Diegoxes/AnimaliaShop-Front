@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { Login } from "../Login/Login";
 
 const options = [
   { name: "Inicio", to: "/" },
@@ -37,7 +38,7 @@ function Navbar() {
         ))}
         <button className={ styles.button } onClick={ () => navigate('/login') }>  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M3 3v18h18M12 2v15l5-4" />
-  </svg>Login</button>
+  </svg><Login/></button>
       </div>
 
 
