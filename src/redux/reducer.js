@@ -6,7 +6,11 @@ import {
   // GET_TITLES,
   SET_PRODUCTS,
   FILTER_PRODUCTS_BY_CATEGORY,
-  SORT_PRODUCTS_BY_PRICE
+  SORT_PRODUCTS_BY_PRICE,
+  ADD_TO_CART,
+  REMOVE_ONE_FROM_CART,
+  REMOVE_ALL_FROM_CART,
+  CLEAR_CART,
 } from "./actionTypes";
 
 const initialState = {
@@ -16,6 +20,7 @@ const initialState = {
   filter: false,
   currentPage: 0,
   totalProductos: 0,
+  carrito: [1, 2],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -112,24 +117,38 @@ const rootReducer = (state = initialState, action) => {
 
     //////////////////////////////// F I L T E R S ////////////////////////////
     case FILTER_PRODUCTS_BY_CATEGORY:
-  return {
-    ...state,
-    filteredProductos: action.payload,
-    productos: action.payload.slice(0, ITEM_PER_PAGE),
-    totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
-  };
+      return {
+        ...state,
+        filteredProductos: action.payload,
+        productos: action.payload.slice(0, ITEM_PER_PAGE),
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+      };
 
-
-  case SORT_PRODUCTS_BY_PRICE:
-  return {
-    ...state,
-    filteredProductos: action.payload,
-    productos: action.payload.slice(0, ITEM_PER_PAGE),
-    totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
-  };
-
+    case SORT_PRODUCTS_BY_PRICE:
+      return {
+        ...state,
+        filteredProductos: action.payload,
+        productos: action.payload.slice(0, ITEM_PER_PAGE),
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+      };
 
     ///////////////////////////////////////////////////////////////////////////
+
+    // Reducer para el carrito
+
+    case ADD_TO_CART:
+      const newItem = [...state.backupProductos].find(
+        (item) => item.id === action.payload
+      );
+
+      return {
+        ...state,
+        carrito: [...state.carrito, newItem],
+      };
+
+    case REMOVE_ONE_FROM_CART:
+    case REMOVE_ALL_FROM_CART:
+    case CLEAR_CART:
 
     default:
       return {

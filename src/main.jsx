@@ -7,11 +7,11 @@ import Layout from "./components/Layout/Layout.jsx";
 import Tienda from "./page/Tienda/Tienda.jsx";
 import Home from "./page/Home/Home.jsx";
 import store from "./redux/store.js";
-import { Auth0Provider } from '@auth0/auth0-react';
+import { Auth0Provider } from "@auth0/auth0-react";
 import { Login } from "./Components/Login/Login.jsx";
 
 import App from "./App.jsx";
-
+import About from "./components/About/About.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,9 +27,13 @@ const router = createBrowserRouter([
         element: <Tienda />,
       },
       {
+        path: "/about",
+        element: <About />,
+      },
+      {
         path: "/login",
         element: <Login />,
-      }
+      },
     ],
   },
 ]);
@@ -37,16 +41,14 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Auth0Provider
-  domain="dev-8yon50uzqfmitkhc.us.auth0.com"
-  clientId="3iFSloLFrYZXKOOuPTkfepY4zNhNByI3"
-  authorizationParams={{
-    redirect_uri: window.location.origin
-  }}
->
+    domain='dev-8yon50uzqfmitkhc.us.auth0.com'
+    clientId='3iFSloLFrYZXKOOuPTkfepY4zNhNByI3'
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+    }}>
     <Provider store={store}>
       <RouterProvider router={router} />
-        <App/>
+      <App />
     </Provider>
-     </Auth0Provider>
-  
+  </Auth0Provider>
 );

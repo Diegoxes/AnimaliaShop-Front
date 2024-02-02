@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { addToCart } from "../../redux/actions";
 
 const Card = ({ id, title, price, image, category }) => {
+  const dispatch = useDispatch();
   return (
-    <div key={id} className='group relative'>
+    <div key={id} className='relative'>
       <div className='relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64'>
         <img src={image} alt={title} className='h-full w-full object-cover' />
       </div>

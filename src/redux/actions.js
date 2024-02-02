@@ -6,7 +6,8 @@ import {
   RESTART,
   PAGINATION,
   SORT_PRODUCTS_BY_PRICE,
-  FILTER_PRODUCTS_BY_CATEGORY
+  FILTER_PRODUCTS_BY_CATEGORY,
+  ADD_TO_CART,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -92,14 +93,14 @@ export const sortProductsByPrice = (order) => (dispatch, getState) => {
 
   // (ascendente o descendente)
   const sortedProducts = [...filteredProductos].sort((a, b) => {
-    if (order === 'asc') {
+    if (order === "asc") {
       return a.price - b.price;
-    } else if (order === 'desc') {
+    } else if (order === "desc") {
       return b.price - a.price;
     }
     return 0;
   });
- 
+
   dispatch({
     type: SORT_PRODUCTS_BY_PRICE,
     payload: sortedProducts,
@@ -107,3 +108,15 @@ export const sortProductsByPrice = (order) => (dispatch, getState) => {
 };
 //////////////////////////////////////////////////////////////////////////////////////7
 
+// Actions para el carrito
+
+export const addToCart = (id) => async (dispatch) => {
+  try {
+    return dispatch({
+      type: ADD_TO_CART,
+      payload: id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
