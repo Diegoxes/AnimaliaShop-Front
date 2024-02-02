@@ -5,3 +5,5 @@ export const GET_BY_ID = "GET_BY_ID";
 export const GET_TITLES = "GET_TITLES";
 export const RESTART = "RESTART";
 export const PAGINATION = "PAGINATION";
+export const FILTER_PRODUCTS_BY_CATEGORY = "FILTER_PRODUCTS";
+export const SORT_PRODUCTS_BY_PRICE = "SORT_PRODUCTS_BY_PRICE";
