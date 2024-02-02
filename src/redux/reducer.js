@@ -5,6 +5,8 @@ import {
   // GET_BY_ID,
   // GET_TITLES,
   SET_PRODUCTS,
+  FILTER_PRODUCTS_BY_CATEGORY,
+  SORT_PRODUCTS_BY_PRICE
 } from "./actionTypes";
 
 const initialState = {
@@ -107,6 +109,27 @@ const rootReducer = (state = initialState, action) => {
     //     ...state,
     //     titleId: action.payload,
     //   };
+
+    //////////////////////////////// F I L T E R S ////////////////////////////
+    case FILTER_PRODUCTS_BY_CATEGORY:
+  return {
+    ...state,
+    filteredProductos: action.payload,
+    productos: action.payload.slice(0, ITEM_PER_PAGE),
+    totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+  };
+
+
+  case SORT_PRODUCTS_BY_PRICE:
+  return {
+    ...state,
+    filteredProductos: action.payload,
+    productos: action.payload.slice(0, ITEM_PER_PAGE),
+    totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+  };
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
     default:
       return {
