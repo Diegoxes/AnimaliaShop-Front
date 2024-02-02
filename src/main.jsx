@@ -9,8 +9,11 @@ import Home from "./page/Home/Home.jsx";
 import store from "./redux/store.js";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Login } from "./Components/Login/Login.jsx";
-
+import CreateProduct from './components/Forms/CreateProduct.jsx'
+import CreateCategory from "./components/Forms/CreateCategory.jsx";
 import App from "./App.jsx";
+
+
 import About from "./components/About/About.jsx";
 
 const router = createBrowserRouter([
@@ -33,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login />,
+      },
+      {
+        path: "/formularioProducto",
+        element: <CreateProduct />   
+      },
+      {
+        path: "/formularioCategoria",
+        element: <CreateCategory />   
       },
     ],
   },
