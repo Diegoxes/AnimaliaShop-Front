@@ -5,6 +5,7 @@ import {
   SET_PRODUCTS,
   RESTART,
   PAGINATION,
+  GET_DETAIL
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -62,6 +63,20 @@ export const changePage = (order) => async (dispatch) => {
   } catch (error) {
     alert(error.response.data.error);
   }
+};
+
+export const getDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      return dispatch({
+        type: GET_DETAIL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(`Error getting product detail: ${error}`);
+    }
+  };
 };
 
 //   export const getById = (id) => {

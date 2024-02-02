@@ -8,6 +8,7 @@ import Tienda from "./page/Tienda/Tienda.jsx";
 import Home from "./page/Home/Home.jsx";
 import store from "./redux/store.js";
 import { Auth0Provider } from '@auth0/auth0-react';
+import DetailProduct from "./components/ProductDetail/ProductDetail.jsx";
 
 import App from "./App.jsx";
 
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         path: "/tienda",
         element: <Tienda />,
       },
+      {
+        path: "/DetailProduct/:id",
+        element:<DetailProduct/>
+      }
     ],
   },
 ]);

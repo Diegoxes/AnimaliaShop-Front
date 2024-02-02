@@ -5,6 +5,7 @@ import {
   // GET_BY_ID,
   // GET_TITLES,
   SET_PRODUCTS,
+  GET_DETAIL,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   filter: false,
   currentPage: 0,
   totalProductos: 0,
+  productDetail:{},
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -47,6 +49,12 @@ const rootReducer = (state = initialState, action) => {
           [...state.backupProductos].length / ITEM_PER_PAGE
         ),
       };
+
+      case GET_DETAIL:
+        return {
+          ...state,
+          productDetail: action.payload,
+        }; 
 
     case PAGINATION:
       const nextPage = state.currentPage + 1;
