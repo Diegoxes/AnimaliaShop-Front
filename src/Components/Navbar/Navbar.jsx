@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Login } from "../Login/Login";
+import Logout from "../Logout/Logout";
 
 const options = [
   { name: "Inicio", to: "/" },
@@ -11,10 +13,10 @@ const options = [
   { name: "Contacto", to: "/contact" },
 ];
 
-
 function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth0();
 
   return (
     <nav className={styles.navbar}>
@@ -37,12 +39,46 @@ function Navbar() {
             </p>
           </Link>
         ))}
-        <button className={ styles.button } onClick={ () => navigate('/login') }>  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M3 3v18h18M12 2v15l5-4" />
-  </svg><Login/></button>
+        {isAuthenticated ? (
+          <button className={styles.button} onClick={() => navigate('/logout')}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="9" y="2" width="6" height="20" />
+              <path d="M2 9h20" />
+            </svg>
+
+            <Logout />
+          </button>
+        ) : (
+          <button
+            className={styles.button}
+            onClick={() => navigate('/login')}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M21 21V12.8a2 2 0 0 0-1-1.74l-8-4.57-8 4.57a2 2 0 0 0-1 1.74V21" />
+              <polyline points="3.27 11 12 6.4 20.73 11" />
+              <line x1="12" y1="22" x2="12" y2="6" />
+            </svg>
+
+            <Login />
+          </button>
+        )}
       </div>
-
-
     </nav>
   );
 }
