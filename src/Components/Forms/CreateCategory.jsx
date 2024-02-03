@@ -26,7 +26,7 @@ const CreateCategory = () => {
   
       if (response.ok) {
         setSuccessMessage('Categoría creada con éxito');
-        setValue('category', ''); // Vaciar el valor del campo después de la creación exitosa
+        setValue('category', ''); 
       } else {
         console.error('Error al crear la categoría:', response.statusText);
       }

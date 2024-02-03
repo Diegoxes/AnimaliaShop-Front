@@ -1,183 +1,209 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import 'tailwindcss/tailwind.css';
+import React, { useState, useEffect } from "react";
+import validation from "./validation"; 
+import "tailwindcss/tailwind.css";
 
 const CrearProducto = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-    trigger,
-  } = useForm();
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    price: "",
+    category: "",
+    stock: "",
+    image: null,
+  });
 
-  const [categories, setCategories] = useState([]);
-  const [category, setCategory] = useState('');
+  const [formErrors, setFormErrors] = useState({});
   const [formHasErrors, setFormHasErrors] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const obtenerCategorias = async () => {
+    const fetchCategories = async () => {
       try {
-        const response = await fetch('http://localhost:3001/categories');
+        const response = await fetch("http://localhost:3001/categories");
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
         } else {
-          console.error('Error al obtener las categorías:', response.statusText);
+          console.error("Error al obtener las categorías:", response.statusText);
         }
       } catch (error) {
-        console.error('Error al obtener las categorías:', error);
+        console.error("Error al obtener las categorías:", error);
       }
     };
 
-    obtenerCategorias();
+    fetchCategories();
   }, []);
 
-  const onSubmit = async (data) => {
+  useEffect(() => {
+    const errors = validation(formData);
+    setFormErrors(errors);
+  }, [formData]);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    setFormHasErrors(false);
+  };
+
+  const handleImage = async (event) => {
+    const selectedImage = event.target.files[0];
+
+    if (selectedImage) {
+      setPreviewImage(URL.createObjectURL(selectedImage));
+
+      try {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+
+        const cloudinaryResponse = await fetch("http://localhost:3001/uploadImage", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (cloudinaryResponse.ok) {
+          const cloudinaryData = await cloudinaryResponse.json();
+           setFormData((prevData) => ({
+            ...prevData,
+            image: cloudinaryData.imageUrl,
+          }));
+        } else {
+          console.error("Error al subir la imagen a Cloudinary:", cloudinaryResponse.statusText);
+        }
+      } catch (error) {
+        console.error("Error al enviar la imagen a Cloudinary:", error);
+      }
+    } else {
+      setPreviewImage("");
+    }
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const errors = validation(formData);
+
+    if (Object.values(errors).some((error) => error !== "")) {
+      setFormHasErrors(true);
+      return;
+    }
+
     try {
-      const formData = new FormData();
+      const formDataToSend = new FormData();
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("category", formData.category);
+      formDataToSend.append("stock", formData.stock);
+      formDataToSend.append("image", formData.image);
 
-      if (!data.image || !(data.image[0] instanceof File)) {
-        console.error('El archivo de imagen no está especificado o no es válido');
-        return;
-      }
-
-      formData.append('image', data.image[0]);
-
-      const imageResponse = await fetch('http://localhost:3001/uploadImage', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!imageResponse.ok) {
-        const errorData = await imageResponse.json();
-        console.error('Error al subir la imagen:', errorData.error);
-        return;
-      }
-
-      const imageData = await imageResponse.json();
-
-      const productData = {
-        title: data.title,
-        description: data.description,
-        price: data.price,
-        category: data.category,
-        stock: data.stock,
-        imageUrl: imageData.imageUrl,
-      };
-
-      const productResponse = await fetch('http://localhost:3001/createProduct', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3001/createProduct", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(productData),
+        body: JSON.stringify({
+          title: formData.title,
+          description: formData.description,
+          price: formData.price,
+          category: formData.category,
+          stock: formData.stock,
+          imageUrl: formData.image, // Usa la URL de la imagen de Cloudinary
+        }),
       });
 
-      if (productResponse.ok) {
-        setSuccessMessage('Producto creado con éxito');
-        setCategory('');
-        reset();
+      if (response.ok) {
+        setSuccessMessage("Producto creado con éxito");
+        setFormData({
+          title: "",
+          description: "",
+          price: "",
+          category: "",
+          stock: "",
+          image: null,
+        });
+        setFormErrors({});
+        setPreviewImage("");
       } else {
-        console.error('Error al crear el producto:', productResponse.statusText);
+        console.error("Error al crear el producto:", response.statusText);
       }
     } catch (error) {
-      console.error('Error al enviar la solicitud al backend:', error);
-    
+      console.error("Error al enviar la solicitud al backend:", error);
     }
   };
-
-  const handleChange = async (e) => {
-    setValue(e.target.name, e.target.value);
-    setCategory(e.target.value);
-    await trigger(e.target.name);
-    setFormHasErrors(Object.keys(errors).length > 0);
-  };
-
-  const handleImage = (e) => {
-    const selectedImage = e.target.files;
-
-    if (selectedImage.length > 0) {
-      setValue('image', selectedImage);
-    } else {
-      setValue('image', []);
-    }
-  };
-
+ 
+ 
   return (
     <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700">
-      <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">Creación de Nuevo Producto</h2>
-      {successMessage && <p className="text-green-500 mb-2">{successMessage}</p>}
-      <form onSubmit={handleSubmit(onSubmit)} encType="multipart/form-data">
+      <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">
+        Creación de Nuevo Producto
+      </h2>
+      {successMessage && (
+        <p className="text-green-500 mb-2">{successMessage}</p>
+      )}
+      <form onSubmit={onSubmit} encType="multipart/form-data">
+  
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="title">
             Title:
           </label>
           <input
-            {...register('title', {
-              required: 'El titulo es obligatorio',
-              pattern: {
-                value: /^[A-Za-z\s]+$/,
-                message: 'Ingresa un título válido con solo letras y espacios',
-              },
-            })}
+            name="title"
+            value={formData.title}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
           />
-          {errors.title && <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>}
+          {formErrors.title && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.title}</p>
+          )}
         </div>
-
+  
+      
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="description">
             Description:
           </label>
           <input
-            {...register('description', {
-              required: 'La descripción es obligatoria',
-              minLength: {
-                value: 10,
-                message: 'La descripción debe tener al menos 10 caracteres',
-              },
-            })}
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
           />
-          {errors.description && <p className="text-red-500 text-xs mt-1">{errors.description.message}</p>}
+          {formErrors.description && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.description}</p>
+          )}
         </div>
-
+  
+       
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="price">
             Price:
           </label>
           <input
-            {...register('price', {
-              required: 'El precio es obligatorio',
-              min: {
-                value: 0.01,
-                message: 'El precio debe ser mayor a 0',
-              },
-            })}
+            name="price"
+            value={formData.price}
             onChange={handleChange}
             step="0.01"
             className="w-full px-3 py-2 border rounded"
           />
-          {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price.message}</p>}
+          {formErrors.price && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.price}</p>
+          )}
         </div>
-
+  
+      
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="category">
             Categoría:
           </label>
           <select
-            {...register('category', {
-              required: 'La categoría es obligatoria',
-            })}
-            value={category}
-            onChange={(e) => {
-              handleChange(e);
-            }}
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
           >
             <option value="" disabled>
@@ -189,11 +215,12 @@ const CrearProducto = () => {
               </option>
             ))}
           </select>
-          {errors.category && (
-            <p className="text-red-500 text-xs mt-1">{errors.category.message}</p>
+          {formErrors.category && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.category}</p>
           )}
         </div>
-
+  
+       
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="image">
             Image:
@@ -201,42 +228,45 @@ const CrearProducto = () => {
           <input
             type="file"
             accept="image/*"
-            onChange={(e) => {
-              console.log('Evento de cambio de input:', e);
-              handleImage(e);
-            }}
-            {...register('image', {
-              required: 'La imagen es obligatoria',
-            })}
+            onChange={handleImage}
+            name="image"
             className="w-full px-3 py-2 border rounded"
           />
-          {errors.image && <p className="text-red-500 text-xs mt-1">{errors.image.message}</p>}
+          {previewImage && (
+            <img
+              src={previewImage}
+              alt="Vista Previa"
+              className="mt-2 max-w-full h-auto"
+            />
+          )}
+          {formErrors.image && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.image}</p>
+          )}
         </div>
-
+  
+     
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2" htmlFor="stock">
             Stock:
           </label>
           <input
-            {...register('stock', {
-              required: 'El Stock es obligatorio',
-              min: {
-                value: 0,
-                message: 'El stock no puede ser negativo',
-              },
-            })}
+            name="stock"
+            value={formData.stock}
             onChange={handleChange}
             className="w-full px-3 py-2 border rounded"
           />
-          {errors.stock && <p className="text-red-500 text-xs mt-1">{errors.stock.message}</p>}
+          {formErrors.stock && (
+            <p className="text-red-500 text-xs mt-1">{formErrors.stock}</p>
+          )}
         </div>
-
+  
+     
         <button
           type="submit"
           className={`p-2 mt-4 w-full rounded ${
             formHasErrors
-              ? 'button-error cursor-not-allowed'
-              : 'bg-blue-500 text-white hover:bg-blue-700 cursor-pointer'
+              ? "button-error cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-700 cursor-pointer"
           }`}
           disabled={formHasErrors}
         >
@@ -245,6 +275,6 @@ const CrearProducto = () => {
       </form>
     </div>
   );
-};
-
+  };
+  
 export default CrearProducto;
