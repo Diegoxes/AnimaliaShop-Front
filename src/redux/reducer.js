@@ -20,7 +20,7 @@ const initialState = {
   filter: false,
   currentPage: 0,
   totalProductos: 0,
-  carrito: [1, 2],
+  carrito: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -141,10 +141,21 @@ const rootReducer = (state = initialState, action) => {
         (item) => item.id === action.payload
       );
 
-      return {
-        ...state,
-        carrito: [...state.carrito, newItem],
-      };
+      const itemsCart = state.carrito.find((item) => item.id === newItem.id);
+
+      return itemsCart
+        ? {
+            ...state,
+            carrito: state.carrito.map((producto) =>
+              producto.id === newItem.id
+                ? { ...producto, cantidad: producto.cantidad + 1 }
+                : producto
+            ),
+          }
+        : {
+            ...state,
+            carrito: [...state.carrito, { ...newItem, cantidad: 1 }],
+          };
 
     case REMOVE_ONE_FROM_CART:
     case REMOVE_ALL_FROM_CART:

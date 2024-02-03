@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changePage, getProductos, addToCart } from "../../redux/actions";
 import Card from "../Card/Card";
+import Carrito from "../Carrito/Carrito";
 
 const Cards = () => {
   const productos = useSelector((state) => state.productos);
@@ -27,7 +28,9 @@ const Cards = () => {
           />
         ))}
       </div>
-      <div>{cart.length && cart?.map((cartItem) => console.log(cartItem))}</div>
+      <div>
+        <Carrito />
+      </div>
     </>
   );
 };

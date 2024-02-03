@@ -12,6 +12,7 @@ import { Login } from "./Components/Login/Login.jsx";
 
 import App from "./App.jsx";
 import About from "./components/About/About.jsx";
+import Carrito from "./components/Carrito/Carrito.jsx";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
+      { path: "/carrito", element: <Carrito /> },
     ],
   },
 ]);
