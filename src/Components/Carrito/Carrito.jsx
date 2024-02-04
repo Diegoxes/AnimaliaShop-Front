@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/actions";
-import { useParams } from "react-router-dom";
 
 const Carrito = () => {
   const dispatch = useDispatch();
+
   const productItem = useSelector((state) => state.carrito);
-  console.log(productItem);
+  useEffect(() => {
+    localStorage.setItem("carrito", JSON.stringify(productItem));
+  }, [productItem]);
 
   return (
     <section className='h-screen bg-gray-100 py-12 sm:py-16 lg:py-20'>
@@ -47,7 +49,7 @@ const Carrito = () => {
 
                           <div className='mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end'>
                             <p className='shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right'>
-                              ${product.price}
+                              {product.price * product.cantidad}
                             </p>
 
                             <div className='sm:order-1'>
@@ -130,7 +132,8 @@ const Carrito = () => {
                   {productItem
                     .reduce(
                       (acumulador, product) =>
-                        parseFloat(product.price) + acumulador,
+                        parseFloat(product.price) * product.cantidad +
+                        acumulador,
                       0
                     )
                     .toFixed(2)}

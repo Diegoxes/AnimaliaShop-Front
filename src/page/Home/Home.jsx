@@ -1,9 +1,8 @@
 import React from "react";
-import styles from './Home.module.css';
 
 const Home = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <h1>Prueba del Home</h1>
     </div>
   );

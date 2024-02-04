@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { BiShoppingBag } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Login } from "../Login/Login";
 import Logout from "../Logout/Logout";
+import { useSelector } from "react-redux";
+import Carrito from "../Carrito/Carrito";
 
 function Navbar() {
   const { isAuthenticated } = useAuth0();
+  const carrito = useSelector((state) => state.carrito);
+  const [showModal, setShowModal] = useState(false);
 
   return (
-    <header className='shadow mb-2'>
+    <header className=' shadow mb-2'>
       <div className='relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 md:mx-auto md:flex-row md:items-center'>
         <Link
           to={`/`}
@@ -53,22 +58,35 @@ function Navbar() {
           aria-label='Header Navigation'
           className='peer-checked:mt-8 peer-checked:max-h-56 flex max-h-0 w-full flex-col items-center justify-between overflow-hidden transition-all md:ml-24 md:max-h-full md:flex-row md:items-start'>
           <ul className='flex flex-col items-center space-y-2 md:ml-auto md:flex-row md:space-y-0'>
-            <li className='text-gray-600 md:mr-12 hover:text-blue-600'>
+            <li className='text-gray-600 md:mr-12 hover:text-orange-600'>
               <Link to={`/`}>Inicio</Link>
             </li>
-            <li className='text-gray-600 md:mr-12 hover:text-blue-600'>
+            <li className='text-gray-600 md:mr-12 hover:text-orange-600'>
               <Link to={`/about`}>Sobre Nosotros</Link>
             </li>
-            <li className='text-gray-600 md:mr-12 hover:text-blue-600'>
+            <li className='text-gray-600 md:mr-12 hover:text-orange-600'>
               <Link to={`/tienda`}>Tienda</Link>
             </li>
 
+            <button className='hover:cursor-pointer'>
+              <div className='pr-4 relative' onClick={() => setShowModal(true)}>
+                <BiShoppingBag className='text-3xl text-orange-600 opacity-80' />
+                <div className='absolute bottom-2 right-1 bg-orange-600 rounded-full px-2'>
+                  <span className='text-white font-bold text-sm'>
+                    {carrito.reduce(
+                      (acumulador, producto) => acumulador + producto.cantidad,
+                      0
+                    )}
+                  </span>
+                </div>
+              </div>
+            </button>
             {isAuthenticated ? (
-              <li className='flex justify-center  items-center text-gray-600 md:mr-12 hover:text-blue-600'>
+              <li className='flex justify-center  items-center text-gray-600 md:mr-12 hover:text-orange-600'>
                 <Logout />
               </li>
             ) : (
-              <li className=' text-gray-600 md:mr-12 hover:text-blue-600'>
+              <li className=' text-gray-600 md:mr-12 hover:text-orange-600'>
                 <Login />
               </li>
             )}

@@ -33,6 +33,16 @@ const Layout = () => {
           texto: "Carrito de compras",
           imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
         };
+      case `/formularioProducto`:
+        return {
+          texto: "Creando el Producto",
+          imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
+        };
+      case `/formularioCategoria`:
+        return {
+          texto: "Creando la categoria",
+          imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
+        };
     }
   };
 
@@ -40,7 +50,7 @@ const Layout = () => {
     <div>
       <Navbar />
       <Banner banner={getBannerText()} />
-      <div className={style.Container}>
+      <div className='container-lg'>
         <Outlet />
       </div>
     </div>

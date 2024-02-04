@@ -8,6 +8,7 @@ import {
   REMOVE_ALL_FROM_CART,
   REMOVE_ONE_FROM_CART,
   RESTART,
+  SET_INITIAL_CART,
   // GET_BY_ID,
   // GET_TITLES,
   SET_PRODUCTS,
@@ -192,7 +193,11 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         carrito: state.carrito.filter((item) => item.id !== action.payload),
       };
-    case CLEAR_CART:
+    case SET_INITIAL_CART:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     default:
       return {
