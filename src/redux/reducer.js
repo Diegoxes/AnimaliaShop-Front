@@ -134,19 +134,30 @@ const rootReducer = (state = initialState, action) => {
     // Reducer para el carrito
 
     case ADD_TO_CART:
-      const newItem = [...state.backupProductos].find(
+      const newItem = state.backupProductos.find(
         (item) => item.id === action.payload
       );
 
+      // { id: 2, title: "pooph" }
+
+      // newItem = busca el id que es pasado por el action en la base de datos
+
       const itemsCart = state.carrito.find((item) => item.id === newItem.id);
+
+      // busca el id en el carrito de compras
+
+      // {id: 2, title: "pooph"} === {id: 3, title: "ropa"}
 
       return itemsCart
         ? {
             ...state,
-            carrito: state.carrito.map((producto) =>
-              producto.id === newItem.id
-                ? { ...producto, cantidad: producto.cantidad + 1 }
-                : producto
+            carrito: state.carrito.map(
+              (
+                producto // [{ id: 2, title: 'pooph }] === {id:2}
+              ) =>
+                producto.id === newItem.id
+                  ? { ...producto, cantidad: producto.cantidad + 1 }
+                  : producto
             ),
           }
         : {
@@ -155,7 +166,32 @@ const rootReducer = (state = initialState, action) => {
           };
 
     case REMOVE_ONE_FROM_CART:
+      const SearchProductCart = state.carrito.find(
+        (item) => item.id === action.payload
+      );
+
+      return SearchProductCart.cantidad > 1
+        ? {
+            ...state,
+            carrito: state.carrito.map((item) =>
+              item.id === action.payload
+                ? {
+                    ...item,
+                    cantidad: item.cantidad - 1,
+                  }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            carrito: state.carrito.filter((item) => item.id !== action.payload),
+          };
+
     case REMOVE_ALL_FROM_CART:
+      return {
+        ...state,
+        carrito: state.carrito.filter((item) => item.id !== action.payload),
+      };
     case CLEAR_CART:
 
     default:
