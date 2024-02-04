@@ -9,6 +9,8 @@ import {
   FILTER_PRODUCTS_BY_CATEGORY,
   ADD_TO_CART,
   GET_DETAIL,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -156,3 +158,23 @@ export const addToCart = (id) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const deleteFromCart =
+  (id, all = false) =>
+  (dispatch) => {
+    try {
+      {
+        all
+          ? dispatch({
+              type: REMOVE_ALL_FROM_CART,
+              payload: id,
+            })
+          : dispatch({
+              type: REMOVE_ONE_FROM_CART,
+              payload: id,
+            });
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };

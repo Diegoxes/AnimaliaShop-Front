@@ -5,7 +5,11 @@ export const Login = () => {
 
   return (
     <>
-      <button onClick={() => loginWithRedirect()}>Iniciar Sesión</button>
+      <button
+        className='rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white'
+        onClick={() => loginWithRedirect()}>
+        Login
+      </button>
     </>
   );
 };
