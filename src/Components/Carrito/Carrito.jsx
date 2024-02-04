@@ -1,8 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, deleteFromCart } from "../../redux/actions";
+import { useParams } from "react-router-dom";
 
 const Carrito = () => {
+  const dispatch = useDispatch();
   const productItem = useSelector((state) => state.carrito);
+  console.log(productItem);
 
   return (
     <section className='h-screen bg-gray-100 py-12 sm:py-16 lg:py-20'>
@@ -48,14 +52,20 @@ const Carrito = () => {
 
                             <div className='sm:order-1'>
                               <div className='mx-auto flex h-8 items-stretch text-gray-600'>
-                                <button className='flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'>
+                                <button
+                                  onClick={() =>
+                                    dispatch(deleteFromCart(product.id))
+                                  }
+                                  className='flex items-center justify-center rounded-l-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'>
                                   -
                                 </button>
                                 <div className='flex w-full items-center justify-center bg-gray-100 px-4 text-xs uppercase transition'>
                                   {product.cantidad}
                                 </div>
                                 <button
-                                  onClick={() => product.cantidad + 1}
+                                  onClick={() =>
+                                    dispatch(addToCart(product.id))
+                                  }
                                   className='flex items-center justify-center rounded-r-md bg-gray-200 px-4 transition hover:bg-black hover:text-white'>
                                   +
                                 </button>
@@ -66,6 +76,9 @@ const Carrito = () => {
 
                         <div className='absolute top-0 right-0 flex sm:bottom-0 sm:top-auto'>
                           <button
+                            onClick={() =>
+                              dispatch(deleteFromCart(product.id, true))
+                            }
                             type='button'
                             className='flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900'>
                             <svg
@@ -89,7 +102,7 @@ const Carrito = () => {
                 </ul>
               </div>
 
-              <div className='mt-6 border-t border-b py-2'>
+              {/* <div className='mt-6 border-t border-b py-2'>
                 <div className='flex items-center justify-between'>
                   <p className='text-sm text-gray-400'>Subtotal</p>
                   <p className='text-lg font-semibold text-gray-900'>
@@ -104,15 +117,23 @@ const Carrito = () => {
                   </p>
                 </div>
                 <div className='flex items-center justify-between'>
-                  <p className='text-sm text-gray-400'>Shipping</p>
+                  <p className='text-sm text-gray-400'>Envio</p>
                   <p className='text-lg font-semibold text-gray-900'>$8.00</p>
                 </div>
-              </div>
+              </div> */}
               <div className='mt-6 flex items-center justify-between'>
-                <p className='text-sm font-medium text-gray-900'>Total</p>
+                <p className='text-2xl uppercase font-medium text-gray-900'>
+                  Total
+                </p>
                 <p className='text-2xl font-semibold text-gray-900'>
                   <span className='text-xs font-normal text-gray-400'>USD</span>{" "}
-                  408.00
+                  {productItem
+                    .reduce(
+                      (acumulador, product) =>
+                        parseFloat(product.price) + acumulador,
+                      0
+                    )
+                    .toFixed(2)}
                 </p>
               </div>
 

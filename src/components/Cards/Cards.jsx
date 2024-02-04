@@ -9,7 +9,6 @@ const Cards = () => {
   const productos = useSelector((state) => state.productos);
   const dispatch = useDispatch();
 
-  const cart = useSelector((state) => state.carrito);
   useEffect(() => {
     dispatch(getProductos());
   }, []);
