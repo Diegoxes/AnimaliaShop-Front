@@ -1,10 +1,17 @@
 import {
+  ADD_TO_CART,
+  CLEAR_CART,
   FILTER_BY_NAME,
+  FILTER_PRODUCTS_BY_CATEGORY,
+  GET_DETAIL,
   PAGINATION,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
   RESTART,
   // GET_BY_ID,
   // GET_TITLES,
   SET_PRODUCTS,
+  SORT_PRODUCTS_BY_PRICE,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,10 +21,12 @@ const initialState = {
   filter: false,
   currentPage: 0,
   totalProductos: 0,
+  carrito: [],
+  productDetail: {},
 };
 
 const rootReducer = (state = initialState, action) => {
-  const ITEM_PER_PAGE = 5;
+  const ITEM_PER_PAGE = 4;
   switch (action.type) {
     case SET_PRODUCTS:
       return {
@@ -46,6 +55,12 @@ const rootReducer = (state = initialState, action) => {
         totalProductos: Math.ceil(
           [...state.backupProductos].length / ITEM_PER_PAGE
         ),
+      };
+
+    case GET_DETAIL:
+      return {
+        ...state,
+        productDetail: action.payload,
       };
 
     case PAGINATION:
@@ -97,16 +112,51 @@ const rootReducer = (state = initialState, action) => {
         ),
       };
 
-    // case GET_TITLES:
-    //   return {
-    //     ...state,
-    //     Alltitle: action.payload,
-    //   };
-    // case GET_BY_ID:
-    //   return {
-    //     ...state,
-    //     titleId: action.payload,
-    //   };
+    //////////////////////////////// F I L T E R S ////////////////////////////
+    case FILTER_PRODUCTS_BY_CATEGORY:
+      return {
+        ...state,
+        filteredProductos: action.payload,
+        productos: action.payload.slice(0, ITEM_PER_PAGE),
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+      };
+
+    case SORT_PRODUCTS_BY_PRICE:
+      return {
+        ...state,
+        filteredProductos: action.payload,
+        productos: action.payload.slice(0, ITEM_PER_PAGE),
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+      };
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Reducer para el carrito
+
+    case ADD_TO_CART:
+      const newItem = [...state.backupProductos].find(
+        (item) => item.id === action.payload
+      );
+
+      const itemsCart = state.carrito.find((item) => item.id === newItem.id);
+
+      return itemsCart
+        ? {
+            ...state,
+            carrito: state.carrito.map((producto) =>
+              producto.id === newItem.id
+                ? { ...producto, cantidad: producto.cantidad + 1 }
+                : producto
+            ),
+          }
+        : {
+            ...state,
+            carrito: [...state.carrito, { ...newItem, cantidad: 1 }],
+          };
+
+    case REMOVE_ONE_FROM_CART:
+    case REMOVE_ALL_FROM_CART:
+    case CLEAR_CART:
 
     default:
       return {

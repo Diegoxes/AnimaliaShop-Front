@@ -5,6 +5,10 @@ import {
   SET_PRODUCTS,
   RESTART,
   PAGINATION,
+  SORT_PRODUCTS_BY_PRICE,
+  FILTER_PRODUCTS_BY_CATEGORY,
+  ADD_TO_CART,
+  GET_DETAIL,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -64,6 +68,20 @@ export const changePage = (order) => async (dispatch) => {
   }
 };
 
+export const getDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      return dispatch({
+        type: GET_DETAIL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(`Error getting product detail: ${error}`);
+    }
+  };
+};
+
 //   export const getById = (id) => {
 //     return async function (dispatch) {
 //       try {
@@ -84,3 +102,57 @@ export const changePage = (order) => async (dispatch) => {
 //       }
 //     };
 //   };
+///////////////////// F I L T E R S /////////////////////////////////////////
+
+export const filterProductsByCategory = (category) => async (dispatch) => {
+  try {
+    const response = await axios.get(`${URL}/products`, {
+      params: {
+        category: category,
+      },
+    });
+    console.log("Response from server:", response.data);
+    return dispatch({
+      type: FILTER_PRODUCTS_BY_CATEGORY,
+      payload: response.data,
+    });
+  } catch (error) {
+    console.error(
+      "Error filtering products by category:",
+      error.response?.data || error.message
+    );
+  }
+};
+
+export const sortProductsByPrice = (order) => (dispatch, getState) => {
+  const { filteredProductos } = getState();
+
+  // (ascendente o descendente)
+  const sortedProducts = [...filteredProductos].sort((a, b) => {
+    if (order === "asc") {
+      return a.price - b.price;
+    } else if (order === "desc") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
+  dispatch({
+    type: SORT_PRODUCTS_BY_PRICE,
+    payload: sortedProducts,
+  });
+};
+//////////////////////////////////////////////////////////////////////////////////////7
+
+// Actions para el carrito
+
+export const addToCart = (id) => async (dispatch) => {
+  try {
+    return dispatch({
+      type: ADD_TO_CART,
+      payload: id,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

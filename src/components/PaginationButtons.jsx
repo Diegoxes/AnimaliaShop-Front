@@ -15,22 +15,29 @@ const PaginationButtons = () => {
 
   console.log();
 
+  const showNextButton = currentPage < totalPages - 1;
+  const showPrevButton = currentPage !== 0;
+
   return (
     <div>
       <ReactPaginate
         breakLabel={<span className='mr-4'>...</span>}
         nextLabel={
-          <span className='w-10 h-10 flex items-center justify-center bg-gray-400 rounded-md ml-4'>
-            <BsChevronRight />
-          </span>
+          showNextButton ? (
+            <span className='w-10 h-10 flex items-center justify-center bg-gray-400 rounded-md ml-4'>
+              <BsChevronRight />
+            </span>
+          ) : null
         }
         onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={5}
         pageCount={totalPages}
         previousLabel={
-          <span className='w-10 h-10 flex items-center justify-center bg-gray-400 rounded-md mr-4'>
-            <BsChevronLeft />
-          </span>
+          showPrevButton ? (
+            <span className='w-10 h-10 flex items-center justify-center bg-gray-400 rounded-md mr-4'>
+              <BsChevronLeft />
+            </span>
+          ) : null
         }
         containerClassName='flex items-center justify-center mt-8 mb-4'
         renderOnZeroPageCount={null}
