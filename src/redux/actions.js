@@ -8,6 +8,7 @@ import {
   SORT_PRODUCTS_BY_PRICE,
   FILTER_PRODUCTS_BY_CATEGORY,
   ADD_TO_CART,
+  GET_DETAIL,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -66,6 +67,41 @@ export const changePage = (order) => async (dispatch) => {
     alert(error.response.data.error);
   }
 };
+
+export const getDetail = (id) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      return dispatch({
+        type: GET_DETAIL,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error(`Error getting product detail: ${error}`);
+    }
+  };
+};
+
+//   export const getById = (id) => {
+//     return async function (dispatch) {
+//       try {
+//         if (!id) {
+//           console.error("Invalid id:", id);
+//           return;
+//         }
+
+//         const response = await axios.get(`${URL}/products/${id}`);
+//         console.log("Response from server:", response.data);
+//         dispatch({
+//           type: GET_BY_ID,
+//           payload: response.data,
+//         });
+//       } catch (error) {
+//         console.error("Error fetching item by id:", error.response?.data || error.message);
+//         throw error;
+//       }
+//     };
+//   };
 ///////////////////// F I L T E R S /////////////////////////////////////////
 
 export const filterProductsByCategory = (category) => async (dispatch) => {

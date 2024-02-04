@@ -28,9 +28,6 @@ const Cards = () => {
           />
         ))}
       </div>
-      <div>
-        <Carrito />
-      </div>
     </>
   );
 };
