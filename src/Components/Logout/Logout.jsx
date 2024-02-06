@@ -1,8 +1,26 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
+import {useDispatch} from "react-redux";
+import { createUser } from "../../Redux/actions";
 
 const Logout = () => {
-  const { logout, user } = useAuth0();
+  const { logout, isAuthenticated, user } = useAuth0();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      while (!isAuthenticated) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+
+      if (isAuthenticated) {
+        dispatch(createUser(user.email));
+      }
+    };
+
+    checkAuthentication();
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <div className='flex items-center justify-center'>

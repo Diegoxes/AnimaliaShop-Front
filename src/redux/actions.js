@@ -11,6 +11,7 @@ import {
   GET_DETAIL,
   REMOVE_ALL_FROM_CART,
   REMOVE_ONE_FROM_CART,
+  CREATE_USER,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -177,4 +178,23 @@ export const deleteFromCart =
     } catch (error) {
       console.log(error.response.data.message);
     }
+
+    
+
+  };
+  //CREACION DE USUARIOS
+  export const createUser = (email) => {
+    const endpoint = "/users";
+    return async (dispatch) => {
+      try {
+        const { data } = await axios.post(endpoint, { email });
+        if (!data) throw new Error("There was no data");
+        return dispatch({
+          type: CREATE_USER,
+          payload: data,
+        });
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    };
   };
