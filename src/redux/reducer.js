@@ -20,7 +20,7 @@ const initialState = {
   backupProductos: [],
   filteredProductos: [],
   filter: false,
-  currentPage: 0,
+  currentPage: 1,
   totalProductos: 0,
   carrito: [],
   productDetail: {},
@@ -64,55 +64,55 @@ const rootReducer = (state = initialState, action) => {
         productDetail: action.payload,
       };
 
-    case PAGINATION:
-      const nextPage = state.currentPage + 1;
-      const prevPage = state.currentPage - 1;
-      const firstIndex =
-        action.payload === "next"
-          ? nextPage * ITEM_PER_PAGE
-          : prevPage * ITEM_PER_PAGE;
-
-      if (action.filter) {
+      case PAGINATION:
+        let nextPage, prevPage;
+        if (state.filter) {
+          nextPage = state.currentPage + 1;
+          prevPage = state.currentPage - 1;
+        } else {
+          nextPage = Math.min(state.currentPage + 1, state.totalProductos);
+          prevPage = Math.max(state.currentPage - 1, 1);
+        }
+      
+        const firstIndex =
+          action.payload === "next"
+            ? nextPage * ITEM_PER_PAGE - ITEM_PER_PAGE
+            : prevPage * ITEM_PER_PAGE - ITEM_PER_PAGE;
+      
+        if (action.filter) {
+          if (
+            action.payload === "next" &&
+            firstIndex >= state.filteredProductos.length
+          ) {
+            return state;
+          }
+      
+          if (action.payload === "prev" && prevPage < 1) return state;
+      
+          return {
+            ...state,
+            productos: state.filteredProductos.slice(firstIndex, firstIndex + ITEM_PER_PAGE),
+            currentPage: action.payload === "next" ? nextPage : prevPage,
+            filter: true,
+            totalProductos: Math.ceil(state.filteredProductos.length / ITEM_PER_PAGE),
+          };
+        }
+      
         if (
           action.payload === "next" &&
           firstIndex >= state.backupProductos.length
-        ) {
-          return state;
-        }
-
-        if (action.payload === "prev" && prevPage < 0) return state;
-
+        ) return state;
+        
+        if (action.payload === "prev" && prevPage < 1) return state;
+      
         return {
           ...state,
-          productos: [...state.filteredProductos].splice(
-            firstIndex,
-            ITEM_PER_PAGE
-          ),
+          productos: state.backupProductos.slice(firstIndex, firstIndex + ITEM_PER_PAGE),
           currentPage: action.payload === "next" ? nextPage : prevPage,
-          filter: true,
-          totalProductos: Math.ceil(
-            [...state.filteredProductos].length / ITEM_PER_PAGE
-          ),
+          filter: false,
+          totalProductos: Math.ceil(state.backupProductos.length / ITEM_PER_PAGE),
         };
-      }
-
-      if (
-        action.payload === "next" &&
-        firstIndex >= state.backupProductos.length
-      )
-        return state;
-      if (action.payload === "prev" && prevPage < 0) return state;
-
-      return {
-        ...state,
-        productos: [...state.backupProductos].splice(firstIndex, ITEM_PER_PAGE),
-        currentPage: action.payload === "next" ? nextPage : prevPage,
-        filter: false,
-        totalProductos: Math.ceil(
-          [...state.backupProductos].length / ITEM_PER_PAGE
-        ),
-      };
-
+      
     //////////////////////////////// F I L T E R S ////////////////////////////
     case FILTER_PRODUCTS_BY_CATEGORY:
       return {

@@ -9,7 +9,7 @@ const Cards = () => {
 
   useEffect(() => {
     dispatch(getProductos());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
