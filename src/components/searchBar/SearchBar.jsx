@@ -49,3 +49,6 @@ export const SearchBar = () => {
   );
 };
 
+
+
+//se agrega nuevo diseño

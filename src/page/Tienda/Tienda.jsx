@@ -47,3 +47,6 @@ const Tienda = () => {
 };
 
 export default Tienda;
+
+
+//se agrega nuevo diseño
