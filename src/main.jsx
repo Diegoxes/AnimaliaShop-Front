@@ -8,7 +8,7 @@ import store from "./redux/store.js";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Home from "./page/Home/Home.jsx";
 import Layout from "./components/Layout/Layout.jsx";
-import CreateProduct from "./components/Forms/CreateProduct.jsx";
+import CrearProducto from "./components/Forms/CreateProduct.jsx";
 import CreateCategory from "./components/Forms/CreateCategory.jsx";
 import About from "./components/About/About.jsx";
 import Carrito from "./components/Carrito/Carrito.jsx";
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/formularioProducto",
-        element: <CreateProduct />,
+        element: <CrearProducto />,
       },
       {
         path: "/formularioCategoria",
