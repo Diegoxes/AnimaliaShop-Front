@@ -1,12 +1,14 @@
 import React from "react";
-import styles from './Home.module.css';
+import InterestProducts from "../../components/InterestProducts/InterestProducts";
 
 const Home = () => {
   return (
-    <div className={styles.container}>
+    <div>
       <h1>Prueba del Home</h1>
+      <InterestProducts />
     </div>
   );
 };
 
 export default Home;
+

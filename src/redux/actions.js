@@ -11,6 +11,7 @@ import {
   GET_DETAIL,
   REMOVE_ALL_FROM_CART,
   REMOVE_ONE_FROM_CART,
+  SET_INITIAL_CART,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -178,3 +179,11 @@ export const deleteFromCart =
       console.log(error.response.data.message);
     }
   };
+
+// Guardando el estado actual del carrito
+export const setInitialCart = (cart) => (dispatch) => {
+  return dispatch({
+    type: SET_INITIAL_CART,
+    payload: cart,
+  });
+};

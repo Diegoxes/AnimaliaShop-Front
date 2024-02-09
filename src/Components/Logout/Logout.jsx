@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Logout = () => {
   const { logout, user } = useAuth0();
+  console.log(user);
 
   return (
     <div className='flex items-center justify-center'>
