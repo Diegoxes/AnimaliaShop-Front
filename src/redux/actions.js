@@ -18,7 +18,7 @@ const URL = "http://localhost:3001";
 
 export const getProductos = () => async (dispatch) => {
   try {
-    const { data } = await axios(URL + "/products");
+    const { data } = await axios(`${URL}/products`);
     return dispatch({
       type: SET_PRODUCTS,
       payload: data,
@@ -32,7 +32,7 @@ export const filterName = (name) => {
   return async function (dispatch) {
     try {
       const response = await axios.get(
-        `http://localhost:3001/products/title/${name}`
+        `${URL}/products/title/${name}`
       );
       console.log("Response from server:", response.data);
       return dispatch({
@@ -43,7 +43,7 @@ export const filterName = (name) => {
       console.error(
         "Error fetching items:",
         error.response?.data || error.message
-      );
+      ); 
     }
   };
 };
@@ -74,7 +74,7 @@ export const changePage = (order) => async (dispatch) => {
 export const getDetail = (id) => {
   return async (dispatch) => {
     try {
-      const response = await axios.get(`http://localhost:3001/products/${id}`);
+      const response = await axios.get(`${URL}/products/${id}`);
       return dispatch({
         type: GET_DETAIL,
         payload: response.data,

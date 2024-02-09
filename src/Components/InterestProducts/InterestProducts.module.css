@@ -1,0 +1,21 @@
+.interestTitle {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 50px;
+    font-weight: bold;
+  }
+  
+  .interestGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 150px;
+    background-color: rgba(171, 171, 171, 0.096);
+    height: 680px;
+  }
+
+  .interestCard {
+    height: 300px;
+  }
+  
+  
+  

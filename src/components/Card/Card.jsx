@@ -8,7 +8,7 @@ import { addToCart } from "../../redux/actions";
 const Card = ({ id, title, price, image, category }) => {
   const dispatch = useDispatch();
 
-  const carrito = useSelector((state) => state.carrito);
+  const carrito = useSelector((state) => state.carrito) || [];
 
   const isProductInCart = carrito.find((item) => item.id === id);
 
