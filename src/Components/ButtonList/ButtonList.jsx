@@ -25,3 +25,5 @@ export const ButtonList = ({ categories, filterCategory }) => {
     </div>
   );
 };
+
+//se agrega nuevo diseño

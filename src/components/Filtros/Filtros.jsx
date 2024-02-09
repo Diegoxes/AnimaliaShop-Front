@@ -53,3 +53,5 @@ export const Filtros = () => {
 </div>
   );
 };
+
+//se agrega nuevo diseño
