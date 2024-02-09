@@ -25,22 +25,22 @@ const Tienda = () => {
   };
 
   return (
-    <div className='container mx-auto'>
-      <div>
-        <div className='w-full'>
-          {" "}
-          {/* Ajusta el ancho del SearchBar */}
+    <div className="flex items-center justify-center mt-8">
+    <div>
+      <div >
+      <div className="w-full flex justify-center">
           <SearchBar />
         </div>
-      </div>
-      <div className='mt-4 mb-4'>
+      <div className="mt-4 mb-4">
         <Filtros />
       </div>
-      <div className=''>
+      </div>
+      <div>
         <Cards />
         <PaginationButtons />
       </div>
     </div>
+  </div>
   );
 };
 
