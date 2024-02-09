@@ -3,15 +3,21 @@ import style from "./Banner.module.css";
 
 const Banner = ({ banner }) => {
   return (
-    <div className={style.ContainerBanner}>
-      <div className={style.ContainerImagen}>
-        <img src={banner.imagen} alt='' />
+    <>
+      <div className='relative  container-fluid'>
+        <div className='h-[300px]'>
+          <img
+            className='w-full h-full  object-cover'
+            src={banner.imagen}
+            alt={banner.texto}
+          />
 
-        <div className={style.ContainerTexto}>
-          <h1> {banner.texto}</h1>
+          <div className='text-white absolute top-20 bottom-0 left-0 right-0 text-center font-bold text-6xl'>
+            <h1> {banner.texto}</h1>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

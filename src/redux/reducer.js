@@ -1,10 +1,18 @@
 import {
+  ADD_TO_CART,
+  CLEAR_CART,
   FILTER_BY_NAME,
+  FILTER_PRODUCTS_BY_CATEGORY,
+  GET_DETAIL,
   PAGINATION,
+  REMOVE_ALL_FROM_CART,
+  REMOVE_ONE_FROM_CART,
   RESTART,
+  SET_INITIAL_CART,
   // GET_BY_ID,
   // GET_TITLES,
   SET_PRODUCTS,
+  SORT_PRODUCTS_BY_PRICE,
 } from "./actionTypes";
 
 const initialState = {
@@ -14,15 +22,18 @@ const initialState = {
   filter: false,
   currentPage: 0,
   totalProductos: 0,
+  carrito: [],
+  productDetail: {},
 };
 
 const rootReducer = (state = initialState, action) => {
-  const ITEM_PER_PAGE = 5;
+  const ITEM_PER_PAGE = 3;
   switch (action.type) {
     case SET_PRODUCTS:
       return {
         ...state,
         productos: [...action.payload].splice(0, ITEM_PER_PAGE),
+        currentPage: 0,
         backupProductos: action.payload,
         filteredProductos: action.payload,
         totalProductos: Math.ceil(
@@ -36,6 +47,7 @@ const rootReducer = (state = initialState, action) => {
         filteredProductos: action.payload,
         productos: action.payload,
         totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+        filter: true,
       };
 
     case RESTART:
@@ -43,23 +55,39 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         productos: [...state.backupProductos].splice(0, ITEM_PER_PAGE),
         filteredProductos: [...state.backupProductos],
+        currentPage: 0,
         totalProductos: Math.ceil(
           [...state.backupProductos].length / ITEM_PER_PAGE
         ),
       };
 
+    case GET_DETAIL:
+      return {
+        ...state,
+        productDetail: action.payload,
+      };
+
     case PAGINATION:
+      // if (state.filter) {
+      //   nextPage = state.currentPage + 1;
+      //   prevPage = state.currentPage - 1;
+      // } else {
+      //   nextPage = Math.min(state.currentPage + 1, state.totalProductos);
+      //   prevPage = Math.max(state.currentPage - 1, 1);
+      // }
+
       const nextPage = state.currentPage + 1;
       const prevPage = state.currentPage - 1;
-      const firstIndex =
+
+      const firstIndex = // 'next' 1 * 5 = 5
         action.payload === "next"
           ? nextPage * ITEM_PER_PAGE
           : prevPage * ITEM_PER_PAGE;
 
-      if (action.filter) {
+      if (state.filter) {
         if (
           action.payload === "next" &&
-          firstIndex >= state.backupProductos.length
+          firstIndex >= state.filteredProductos.length
         ) {
           return state;
         }
@@ -68,7 +96,7 @@ const rootReducer = (state = initialState, action) => {
 
         return {
           ...state,
-          productos: [...state.filteredProductos].splice(
+          productos: [...action.filteredProductos].splice(
             firstIndex,
             ITEM_PER_PAGE
           ),
@@ -85,6 +113,7 @@ const rootReducer = (state = initialState, action) => {
         firstIndex >= state.backupProductos.length
       )
         return state;
+
       if (action.payload === "prev" && prevPage < 0) return state;
 
       return {
@@ -97,16 +126,97 @@ const rootReducer = (state = initialState, action) => {
         ),
       };
 
-    // case GET_TITLES:
-    //   return {
-    //     ...state,
-    //     Alltitle: action.payload,
-    //   };
-    // case GET_BY_ID:
-    //   return {
-    //     ...state,
-    //     titleId: action.payload,
-    //   };
+    //////////////////////////////// F I L T E R S ////////////////////////////
+    case FILTER_PRODUCTS_BY_CATEGORY:
+      // const filteredCategories = [...state.filteredProductos].filter(
+      //   (product) => product.category === action.payload
+      // );
+
+      return {
+        ...state,
+        productos: [...action.payload].splice(0, ITEM_PER_PAGE),
+        filteredProductos: action.payload,
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+        filter: true,
+      };
+
+    case SORT_PRODUCTS_BY_PRICE:
+      return {
+        ...state,
+        filteredProductos: [...state.filteredProductos].sort((a, b) => a + b),
+        productos: action.payload.splice(0, ITEM_PER_PAGE),
+        totalProductos: Math.ceil(action.payload.length / ITEM_PER_PAGE),
+        filter: true,
+      };
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    // Reducer para el carrito
+
+    case ADD_TO_CART:
+      const newItem = state.backupProductos.find(
+        (item) => item.id === action.payload
+      );
+
+      // { id: 2, title: "pooph" }
+
+      // newItem = busca el id que es pasado por el action en la base de datos
+
+      const itemsCart = state.carrito.find((item) => item.id === newItem.id);
+
+      // busca el id en el carrito de compras
+
+      // {id: 2, title: "pooph"} === {id: 3, title: "ropa"}
+
+      return itemsCart
+        ? {
+            ...state,
+            carrito: state.carrito.map(
+              (
+                producto // [{ id: 2, title: 'pooph }] === {id:2}
+              ) =>
+                producto.id === newItem.id
+                  ? { ...producto, cantidad: producto.cantidad + 1 }
+                  : producto
+            ),
+          }
+        : {
+            ...state,
+            carrito: [...state.carrito, { ...newItem, cantidad: 1 }],
+          };
+
+    case REMOVE_ONE_FROM_CART:
+      const SearchProductCart = state.carrito.find(
+        (item) => item.id === action.payload
+      );
+
+      return SearchProductCart.cantidad > 1
+        ? {
+            ...state,
+            carrito: state.carrito.map((item) =>
+              item.id === action.payload
+                ? {
+                    ...item,
+                    cantidad: item.cantidad - 1,
+                  }
+                : item
+            ),
+          }
+        : {
+            ...state,
+            carrito: state.carrito.filter((item) => item.id !== action.payload),
+          };
+
+    case REMOVE_ALL_FROM_CART:
+      return {
+        ...state,
+        carrito: state.carrito.filter((item) => item.id !== action.payload),
+      };
+    case SET_INITIAL_CART:
+      return {
+        ...state,
+        carrito: action.payload,
+      };
 
     default:
       return {
