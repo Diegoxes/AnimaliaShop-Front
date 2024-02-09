@@ -13,10 +13,11 @@ const CreateCategory = () => {
   const [category, setCategory] = useState('');
   const [formHasErrors, setFormHasErrors] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const URL = 'http://localhost:3001';
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch('http://localhost:3001/categories/create', {
+      const response = await fetch(`${URL}/categories/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

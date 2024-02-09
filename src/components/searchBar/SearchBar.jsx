@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { filterName } from "../../redux/actions";
-// import style from "./SearchBar.module.css";
 
 export const SearchBar = () => {
   const [productId, setProductId] = useState("");
@@ -19,9 +18,8 @@ export const SearchBar = () => {
     }
   };
   return (
-    <div className='mx-2 my-10 rounded-xl border bg-white px-4 py-5 max-w-lg mx-auto'>
-      <form onSubmit={handleSearch} className='mb-2 flex'>
-        <div className='mr-1 w-full'>
+    // <div className='mx-2 my-10 rounded-xl border bg-white px-4 py-5 max-w-lg mx-auto'>
+<form onSubmit={handleSearch} className='border-b-2 focus-within:border-none focus-within:ring-1 focus-within:ring-offset-2 focus-within:ring-orange-300 focus-within:ring-offset-#97572a focus-within:rounded-md my-10 flex h-10 items-center justify-start border-b-2 bg-gray-100 leading-4 sm:w-96'>
           <input
             type='text'
             value={productId}
@@ -29,45 +27,25 @@ export const SearchBar = () => {
             onChange={handleChange}
             id='search'
             placeholder='Buscar producto'
-            className='w-full px-3 py-2 border rounded-md focus:ring focus:border-blue-300'
+            className='peer ml-2 flex-grow bg-transparent text-gray-900 outline-none  '
           />
-        </div>
         <button
           type='submit'
-          className='shrink-0 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700'>
+          className='peer-focus:mr-2 z-20 cursor-pointer text-#97572a outline-none duration-150 hover:scale-125'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             strokeWidth='1.5'
-            stroke='currentColor'
-            className='h-6 w-6'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z'></path>
+            stroke='#eac14b'
+            className='class="h-6 w-6 stroke-2" viewBox="0 0 32 32" fill="none"'>
+            <circle cx="15" cy="14" r="8" stroke="#eac14b" fill="transparent"></circle>
+            <line x1="21.1514" y1="19.7929" x2="26.707" y2="25.3484" stroke="#eac14b" fill="transparent"></line>
+
           </svg>
         </button>
       </form>
-    </div>
+    // </div>
   );
 };
 
-{
-  /* 
-<div class="mx-2 my-10 rounded-xl border bg-white px-4 py-8">
-  <div class="mb-2 flex">
-    <div class="mr-1 w-full">
-      <input type="text" class="placeholder:text-gray-400 h-12 w-full rounded-md bg-gray-200 px-4 font-medium focus:outline-none focus:ring-1 focus:ring-blue-600" placeholder="Search for articles" />
-    </div>
-
-
-
-    <button class="shrink-0 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-600 text-white hover:bg-blue-700">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
-      </svg>
-    </button>
-  </div>
-</div> */
-}

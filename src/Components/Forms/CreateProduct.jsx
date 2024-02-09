@@ -17,11 +17,12 @@ const CrearProducto = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const [categories, setCategories] = useState([]);
+  const URL = "http://localhost:3001";
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3001/categories");
+        const response = await fetch(`${URL}/categories`);
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
@@ -60,7 +61,7 @@ const CrearProducto = () => {
         const formData = new FormData();
         formData.append("image", selectedImage);
 
-        const cloudinaryResponse = await fetch("http://localhost:3001/uploadImage", {
+        const cloudinaryResponse = await fetch(`${URL}/uploadImage`, {
           method: "POST",
           body: formData,
         });
@@ -101,7 +102,7 @@ const CrearProducto = () => {
       formDataToSend.append("stock", formData.stock);
       formDataToSend.append("image", formData.image);
 
-      const response = await fetch("http://localhost:3001/createProduct", {
+      const response = await fetch(`${URL}/createProduct`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -10,6 +10,7 @@ const Tienda = () => {
   const productos = useSelector((state) => state.productos);
   const currentPage = useSelector((state) => state.currentPage);
   const totalProductos = useSelector((state) => state.totalProductos);
+
   console.log("Total de Producto", totalProductos);
   console.log("current Page: ", currentPage);
 
@@ -18,29 +19,30 @@ const Tienda = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     dispatch(getProductos());
   }, []);
 
   return (
-    <div className='container mx-auto'>
-      <div>
-        <div className='w-full'>
-          {" "}
-          {/* Ajusta el ancho del SearchBar */}
+    <div className="flex items-center justify-center mt-8">
+    <div>
+      <div >
+      <div className="w-full flex justify-center">
           <SearchBar />
         </div>
-      </div>
-      <div className='mt-4 mb-4'>
+      <div className="mt-4 mb-4">
         <Filtros />
       </div>
-      <div className=''>
-        <Cards productos={productos} />
-        <PaginationButtons
+      </div>
+      <div>
+      <Cards productos={productos} />
+      <PaginationButtons
           totalProductos={totalProductos}
           currentPage={currentPage}
         />
       </div>
     </div>
+  </div>
   );
 };
 

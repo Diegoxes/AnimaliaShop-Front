@@ -73,6 +73,7 @@ function Navbar() {
                 <BiShoppingBag className='text-3xl text-orange-600 opacity-80' />
                 <div className='absolute bottom-2 right-1 bg-orange-600 rounded-full px-2'>
                   <span className='text-white font-bold text-sm'>
+
                     {carrito ? (
                      carrito.reduce(
                       (acumulador, producto) => acumulador + producto.cantidad,

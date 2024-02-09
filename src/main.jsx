@@ -3,17 +3,18 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import Tienda from "./page/Tienda/Tienda.jsx";
-import store from "./redux/store.js";
+import Tienda from "./page/Tienda/Tienda";
+import store from "./redux/store";
 import { Auth0Provider } from "@auth0/auth0-react";
-import Home from "./page/Home/Home.jsx";
-import Layout from "./components/Layout/Layout.jsx";
-import CreateProduct from "./components/Forms/CreateProduct.jsx";
-import CreateCategory from "./components/Forms/CreateCategory.jsx";
-import About from "./components/About/About.jsx";
-import Carrito from "./components/Carrito/Carrito.jsx";
-import DetailProduct from "./components/ProductDetail/ProductDetail.jsx";
-import { Login } from "./components/Login/Login.jsx";
+import Home from "./page/Home/Home";
+import Layout from "./components/Layout/Layout";
+import CreateProduct from "./components/Forms/CreateProduct";
+import CreateCategory from "./components/Forms/CreateCategory";
+import About from "./components/About/About";
+import Carrito from "./components/Carrito/Carrito";
+import DetailProduct from "./components/ProductDetail/ProductDetail";
+import { Login } from "./components/Login/Login";
+// >>>>>>> dcb9881b189c738112ebae936e474861715bfeda
 
 const router = createBrowserRouter([
   {

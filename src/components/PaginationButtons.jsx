@@ -104,5 +104,5 @@ const PaginationButtons = ({ totalProductos, currentPage }) => {
     </nav>
   );
 };
-
+ 
 export default PaginationButtons;
