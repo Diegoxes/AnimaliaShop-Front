@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import validation from "./validation"; 
-import "tailwindcss/tailwind.css";
 
 const CrearProducto = () => {
   const [formData, setFormData] = useState({
