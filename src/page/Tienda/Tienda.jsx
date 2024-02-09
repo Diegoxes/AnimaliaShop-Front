@@ -24,25 +24,25 @@ const Tienda = () => {
   }, []);
 
   return (
-    <div className='container mx-auto'>
-      <div>
-        <div className='w-full'>
-          {" "}
-          {/* Ajusta el ancho del SearchBar */}
+    <div className="flex items-center justify-center mt-8">
+    <div>
+      <div >
+      <div className="w-full flex justify-center">
           <SearchBar />
         </div>
-      </div>
-      <div className='mt-4 mb-4'>
+      <div className="mt-4 mb-4">
         <Filtros />
       </div>
-      <div className=''>
-        <Cards productos={productos} />
-        <PaginationButtons
+      </div>
+      <div>
+      <Cards productos={productos} />
+      <PaginationButtons
           totalProductos={totalProductos}
           currentPage={currentPage}
         />
       </div>
     </div>
+  </div>
   );
 };
 
