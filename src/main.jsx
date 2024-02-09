@@ -10,11 +10,10 @@ import Home from "./page/Home/Home";
 import Layout from "./components/Layout/Layout";
 import CreateProduct from "./components/Forms/CreateProduct";
 import CreateCategory from "./components/Forms/CreateCategory";
-import About from "./components/About/About";
+// import About from "./components/About/About";
 import Carrito from "./components/Carrito/Carrito";
 import DetailProduct from "./components/ProductDetail/ProductDetail";
 import { Login } from "./components/Login/Login";
-// >>>>>>> dcb9881b189c738112ebae936e474861715bfeda
 
 const router = createBrowserRouter([
   {
@@ -29,10 +28,10 @@ const router = createBrowserRouter([
         path: "/tienda",
         element: <Tienda />,
       },
-      {
-        path: "/about",
-        element: <About />,
-      },
+      // {
+      //   path: "/about",
+      //   element: <About />,
+      // },
       {
         path: "/login",
         element: <Login />,
