@@ -13,7 +13,7 @@ import CreateCategory from "./components/Forms/CreateCategory";
 import About from "./components/About/About";
 import Carrito from "./components/Carrito/Carrito";
 import DetailProduct from "./components/ProductDetail/ProductDetail";
-import { Login } from "./components/Login/Login";
+import { Login } from "./components/Login/Login"
 
 const router = createBrowserRouter([
   {
