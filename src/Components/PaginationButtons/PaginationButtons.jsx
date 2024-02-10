@@ -1,6 +1,6 @@
 import React from "react"; //sacar useeffect
 import { useDispatch } from "react-redux";
-import { changePage } from "../redux/actions";
+import { changePage } from "../../redux/actions";
 
 const PaginationButtons = ({ totalProductos, currentPage }) => {
   const dispatch = useDispatch();
@@ -104,5 +104,5 @@ const PaginationButtons = ({ totalProductos, currentPage }) => {
     </nav>
   );
 };
- 
+
 export default PaginationButtons;
