@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductos } from "../../redux/actions";
-import Card from "../Card/Card";
-import styles from "./InterestProducts.module.css"; 
+import styles from "./InterestProducts.module.css";
 
 const InterestProducts = () => {
   const allProductos = useSelector((state) => state.productos);
