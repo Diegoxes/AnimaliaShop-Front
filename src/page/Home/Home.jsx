@@ -1,5 +1,5 @@
 import React from "react";
-import InterestProducts from "../../components/InterestProducts/InterestProducts";
+import InterestProducts from "../../Components/InterestProducts/InterestProducts";
 
 const Home = () => {
   return (
@@ -11,4 +11,3 @@ const Home = () => {
 };
 
 export default Home;
-

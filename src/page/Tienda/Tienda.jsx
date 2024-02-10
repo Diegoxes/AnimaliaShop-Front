@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchBar } from "../../components/SearchBar/SearchBar";
-import Cards from "../../components/Cards/Cards";
-import { changePage, getProductos, setInitialCart } from "../../redux/actions";
-import PaginationButtons from "../../components/PaginationButtons/PaginationButtons";
-import { Filtros } from "../../components/Filtros/Filtros";
+import { SearchBar } from "../../Components/SearchBar/SearchBar";
+import Cards from "../../Components/Cards/Cards";
+import { getProductos } from "../../redux/actions";
+import PaginationButtons from "../../Components/PaginationButtons/PaginationButtons";
+import { Filtros } from "../../Components/Filtros/Filtros";
 
 const Tienda = () => {
   const productos = useSelector((state) => state.productos);
@@ -13,8 +13,6 @@ const Tienda = () => {
 
   console.log("Total de Producto", totalProductos);
   console.log("current Page: ", currentPage);
-
-  const carrito = useSelector((state) => state.carrito);
 
   const dispatch = useDispatch();
 
