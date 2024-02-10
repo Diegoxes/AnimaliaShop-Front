@@ -1,15 +1,18 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0 } from '@auth0/auth0-react';
 
 export const Login = () => {
-  const { loginWithRedirect } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, user } = useAuth0();
 
-  return (
-    <>
-      <button
-        className='rounded-md border-2 border-blue-600 px-6 py-1 font-medium text-blue-600 transition-colors hover:bg-blue-600 hover:text-white'
-        onClick={() => loginWithRedirect()}>
-        Login
-      </button>
-    </>
-  );
+    const handleLoginRedirect = () => {
+        if (isAuthenticated && user) {
+            localStorage.setItem('auth0_authenticated', 'true');
+            localStorage.setItem('auth0_user', JSON.stringify(user));
+        }
+    };
+
+    return (
+        <>
+            <button onClick={() => { loginWithRedirect(); handleLoginRedirect(); }}>Login</button>
+        </>
+    );
 };
