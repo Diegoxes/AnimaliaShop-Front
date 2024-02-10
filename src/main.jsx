@@ -3,17 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import Tienda from "./page/Tienda/Tienda.jsx";
+import Tienda from "./page/Tienda/Tienda";
 import store from "./redux/store.js";
 import { Auth0Provider } from "@auth0/auth0-react";
-import Home from "./page/Home/Home.jsx";
-import Layout from "./components/Layout/Layout.jsx";
-import CrearProducto from "./components/Forms/CreateProduct.jsx";
-import CreateCategory from "./components/Forms/CreateCategory.jsx";
-import About from "./components/About/About.jsx";
-import Carrito from "./components/Carrito/Carrito.jsx";
-import DetailProduct from "./components/ProductDetail/ProductDetail.jsx";
-import { Login } from "./components/Login/Login.jsx";
+import Home from "./page/Home/Home";
+import Layout from "./Components/Layout/Layout";
+import CrearProducto from "./Components/Forms/CreateProduct";
+import CreateCategory from "./Components/Forms/CreateCategory";
+import About from "./Components/About/About";
+import Carrito from "./Components/Carrito/Carrito";
+import DetailProduct from "./Components/ProductDetail/ProductDetail";
+import { Login } from "./Components/Login/Login";
 
 const router = createBrowserRouter([
   {
