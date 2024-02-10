@@ -36,7 +36,7 @@ const PaginationButtons = ({ totalProductos, currentPage }) => {
       <button
         className={`${
           currentPage === 0 &&
-          "hidden flex items-center space-x-1 font-medium hover:text-blue-600"
+          "flex items-center space-x-1 font-medium hover:text-blue-600"
         } flex items-center space-x-1 font-medium hover:text-blue-600`}
         aria-label='Previous Page'
         onClick={() => dispatch(changePage("prev"))}>
