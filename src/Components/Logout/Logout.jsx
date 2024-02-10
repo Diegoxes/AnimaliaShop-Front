@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import { createUser } from "../../redux/actions";
 
 const Logout = () => {
-  const { logout, user } = useAuth0();
-  console.log(user);
+  const { logout, isAuthenticated, user } = useAuth0();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      while (!isAuthenticated) {
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+
+      if (isAuthenticated) {
+        dispatch(createUser(user.email));
+      }
+    };
+
+    checkAuthentication();
+  }, [isAuthenticated, user, dispatch]);
 
   return (
     <div className='flex items-center justify-center'>
-      <div class='h-10 w-10 flex-shrink-0'>
-        <img class='h-full w-full rounded-full' src={user.picture} alt='' />
+      <div className='h-10 w-10 flex-shrink-0'>
+        <img className='h-full w-full rounded-full' src={user.picture} alt='' />
       </div>
       <span className='px-2 font-semibold text-sm text-black'>
         {user.nickname}
