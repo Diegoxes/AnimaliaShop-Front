@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import validation from "./validation"; 
+import validation from "./validation";
+import "tailwindcss/tailwind.css";
 
 const CrearProducto = () => {
   const [formData, setFormData] = useState({
@@ -16,17 +17,19 @@ const CrearProducto = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const [categories, setCategories] = useState([]);
-  const URL = "http://localhost:3001";
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`${URL}/categories`);
+        const response = await fetch("http://localhost:3001/categories");
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
         } else {
-          console.error("Error al obtener las categorías:", response.statusText);
+          console.error(
+            "Error al obtener las categorías:",
+            response.statusText
+          );
         }
       } catch (error) {
         console.error("Error al obtener las categorías:", error);
@@ -60,19 +63,25 @@ const CrearProducto = () => {
         const formData = new FormData();
         formData.append("image", selectedImage);
 
-        const cloudinaryResponse = await fetch(`${URL}/uploadImage`, {
-          method: "POST",
-          body: formData,
-        });
+        const cloudinaryResponse = await fetch(
+          "http://localhost:3001/uploadImage",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
 
         if (cloudinaryResponse.ok) {
           const cloudinaryData = await cloudinaryResponse.json();
-           setFormData((prevData) => ({
+          setFormData((prevData) => ({
             ...prevData,
             image: cloudinaryData.imageUrl,
           }));
         } else {
-          console.error("Error al subir la imagen a Cloudinary:", cloudinaryResponse.statusText);
+          console.error(
+            "Error al subir la imagen a Cloudinary:",
+            cloudinaryResponse.statusText
+          );
         }
       } catch (error) {
         console.error("Error al enviar la imagen a Cloudinary:", error);
@@ -101,7 +110,7 @@ const CrearProducto = () => {
       formDataToSend.append("stock", formData.stock);
       formDataToSend.append("image", formData.image);
 
-      const response = await fetch(`${URL}/createProduct`, {
+      const response = await fetch("http://localhost:3001/createProduct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,78 +144,74 @@ const CrearProducto = () => {
       console.error("Error al enviar la solicitud al backend:", error);
     }
   };
- 
- 
+
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700">
-      <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">
+    <div className='max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700'>
+      <h2 className='text-2xl font-bold mb-4 text-center text-blue-500'>
         Creación de Nuevo Producto
       </h2>
       {successMessage && (
-        <p className="text-green-500 mb-2">{successMessage}</p>
+        <p className='text-green-500 mb-2'>{successMessage}</p>
       )}
-      <form onSubmit={onSubmit} encType="multipart/form-data">
-  
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="title">
+      <form onSubmit={onSubmit} encType='multipart/form-data'>
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='title'>
             Title:
           </label>
           <input
-            name="title"
+            name='title'
             value={formData.title}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            className='w-full px-3 py-2 border rounded'
           />
           {formErrors.title && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.title}</p>
+            <p className='text-red-500 text-xs mt-1'>{formErrors.title}</p>
           )}
         </div>
-  
-      
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="description">
+
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='description'>
             Description:
           </label>
           <input
-            name="description"
+            name='description'
             value={formData.description}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            className='w-full px-3 py-2 border rounded'
           />
           {formErrors.description && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.description}</p>
+            <p className='text-red-500 text-xs mt-1'>
+              {formErrors.description}
+            </p>
           )}
         </div>
-  
-       
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="price">
+
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='price'>
             Price:
           </label>
           <input
-            name="price"
+            name='price'
             value={formData.price}
             onChange={handleChange}
-            step="0.01"
-            className="w-full px-3 py-2 border rounded"
+            step='0.01'
+            className='w-full px-3 py-2 border rounded'
           />
           {formErrors.price && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.price}</p>
+            <p className='text-red-500 text-xs mt-1'>{formErrors.price}</p>
           )}
         </div>
-  
-      
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="category">
+
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='category'>
             Categoría:
           </label>
           <select
-            name="category"
+            name='category'
             value={formData.category}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
-          >
-            <option value="" disabled>
+            className='w-full px-3 py-2 border rounded'>
+            <option value='' disabled>
               Seleccione una categoría
             </option>
             {categories.map((category, index) => (
@@ -216,65 +221,61 @@ const CrearProducto = () => {
             ))}
           </select>
           {formErrors.category && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.category}</p>
+            <p className='text-red-500 text-xs mt-1'>{formErrors.category}</p>
           )}
         </div>
-  
-       
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="image">
+
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='image'>
             Image:
           </label>
           <input
-            type="file"
-            accept="image/*"
+            type='file'
+            accept='image/*'
             onChange={handleImage}
-            name="image"
-            className="w-full px-3 py-2 border rounded"
+            name='image'
+            className='w-full px-3 py-2 border rounded'
           />
           {previewImage && (
             <img
               src={previewImage}
-              alt="Vista Previa"
-              className="mt-2 max-w-full h-auto"
+              alt='Vista Previa'
+              className='mt-2 max-w-full h-auto'
             />
           )}
           {formErrors.image && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.image}</p>
+            <p className='text-red-500 text-xs mt-1'>{formErrors.image}</p>
           )}
         </div>
-  
-     
-        <div className="mb-4">
-          <label className="block text-sm font-bold mb-2" htmlFor="stock">
+
+        <div className='mb-4'>
+          <label className='block text-sm font-bold mb-2' htmlFor='stock'>
             Stock:
           </label>
           <input
-            name="stock"
+            name='stock'
             value={formData.stock}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            className='w-full px-3 py-2 border rounded'
           />
           {formErrors.stock && (
-            <p className="text-red-500 text-xs mt-1">{formErrors.stock}</p>
+            <p className='text-red-500 text-xs mt-1'>{formErrors.stock}</p>
           )}
         </div>
-  
-     
+
         <button
-          type="submit"
+          type='submit'
           className={`p-2 mt-4 w-full rounded ${
             formHasErrors
               ? "button-error cursor-not-allowed"
               : "bg-blue-500 text-white hover:bg-blue-700 cursor-pointer"
           }`}
-          disabled={formHasErrors}
-        >
+          disabled={formHasErrors}>
           Enviar
         </button>
       </form>
     </div>
   );
-  };
-  
+};
+
 export default CrearProducto;

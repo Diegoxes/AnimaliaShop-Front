@@ -12,6 +12,7 @@ import {
   REMOVE_ALL_FROM_CART,
   REMOVE_ONE_FROM_CART,
   SET_INITIAL_CART,
+  CREATE_USER,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -31,9 +32,7 @@ export const getProductos = () => async (dispatch) => {
 export const filterName = (name) => {
   return async function (dispatch) {
     try {
-      const response = await axios.get(
-        `${URL}/products/title/${name}`
-      );
+      const response = await axios.get(`${URL}/products/title/${name}`);
       console.log("Response from server:", response.data);
       return dispatch({
         type: FILTER_BY_NAME,
@@ -43,7 +42,7 @@ export const filterName = (name) => {
       console.error(
         "Error fetching items:",
         error.response?.data || error.message
-      ); 
+      );
     }
   };
 };
@@ -186,4 +185,38 @@ export const setInitialCart = (cart) => (dispatch) => {
     type: SET_INITIAL_CART,
     payload: cart,
   });
+};
+
+//CREACION DE USUARIOS
+// export const createUser = (email) => {
+//   const endpoint = `${URL}/users`;
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await axios.post(endpoint, email);
+//       console.log(data);
+
+//       if (!data) throw new Error("There was no data");
+//       return dispatch({
+//         type: CREATE_USER,
+//       });
+//     } catch (error) {
+//       throw new Error(error.message);
+//     }
+//   };
+// };
+
+export const createUser = (email, name, picture) => {
+  const endpoint = "/users";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(endpoint, { email, name, picture });
+      if (!data) throw new Error("There was no data");
+      return dispatch({
+        type: CREATE_USER,
+        payload: data,
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  };
 };
