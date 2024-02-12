@@ -38,7 +38,7 @@ const Layout = () => {
           texto: "Carrito de compras",
           imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
         };
-      case `/formularioProducto`:
+      case `/dashboard/formularioProducto`:
         return {
           texto: "Creando el Producto",
           imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
@@ -47,6 +47,18 @@ const Layout = () => {
         return {
           texto: "Creando la categoria",
           imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
+        };
+        case `/Dashboard`:
+        return {
+          texto: "Detalle del Producto",
+          imagen:
+            "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+        };
+        case `/modifications/product/${id}`:
+        return {
+          texto: "Detalle del Producto",
+          imagen:
+            "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
         };
     }
   };

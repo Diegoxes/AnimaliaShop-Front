@@ -14,6 +14,9 @@ import About from "./Components/About/About";
 import Carrito from "./Components/Carrito/Carrito";
 import DetailProduct from "./Components/ProductDetail/ProductDetail";
 import { Login } from "./Components/Login/Login";
+import DashboardRoutes from "./DashboardRoutes.jsx";
+import ModificationProduct from '../src/Dashboard de Administradores/Modification/ModificationProduct.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -49,6 +52,14 @@ const router = createBrowserRouter([
         path: "/formularioCategoria",
         element: <CreateCategory />,
       },
+       {
+         path: "/dashboard/*",
+         element: <DashboardRoutes />,
+       },
+       {
+        path: "/modifications/product/:id",
+        element: <ModificationProduct />,
+      }
     ],
   },
 ]);
