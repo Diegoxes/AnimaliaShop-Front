@@ -206,6 +206,7 @@ export const setInitialCart = (cart) => (dispatch) => {
 //   };
 // };
 
+<<<<<<< HEAD
 export const createUser = (email, name, picture) => {
   const endpoint = "users";
   return async (dispatch) => {
@@ -216,6 +217,13 @@ export const createUser = (email, name, picture) => {
         picture,
       });
 
+=======
+export const createUser = (email,name,picture) => {
+  const endpoint = "users";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`${URL}/${endpoint}`, { email, name, picture });
+>>>>>>> 89e00314e464929a7249d10dfda92aecb88887da
       if (!data) throw new Error("There was no data");
       return dispatch({
         type: CREATE_USER,
@@ -227,6 +235,7 @@ export const createUser = (email, name, picture) => {
   };
 };
 
+<<<<<<< HEAD
 export const getCart = (email) => async (dispatch) => {
   try {
     const { data } = await axios(`${URL}/cart`, { params: { email: email } });
@@ -240,3 +249,5 @@ export const getCart = (email) => async (dispatch) => {
     throw new Error("Error GET cart products:", error);
   }
 };
+=======
+>>>>>>> 89e00314e464929a7249d10dfda92aecb88887da
