@@ -9,9 +9,8 @@ import Carrito from "../Carrito/Carrito";
 
 function Navbar() {
   const { isAuthenticated } = useAuth0();
-  const carrito = useSelector((state) => state.carrito);
   const [showModal, setShowModal] = useState(false);
-
+  const carrito = useSelector((state) => state.carrito);
   return (
     <header className=' shadow mb-2'>
       <div className='relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 md:mx-auto md:flex-row md:items-center'>
@@ -68,24 +67,12 @@ function Navbar() {
               <Link to={`/tienda`}>Tienda</Link>
             </li>
 
-            <button className='hover:cursor-pointer'>
+            <Link to='/carrito' className='hover:cursor-pointer'>
               <div className='pr-4 relative' onClick={() => setShowModal(true)}>
                 <BiShoppingBag className='text-3xl text-orange-600 opacity-80' />
-                <div className='absolute bottom-2 right-1 bg-orange-600 rounded-full px-2'>
-                  <span className='text-white font-bold text-sm'>
-
-                    {carrito ? (
-                     carrito.reduce(
-                      (acumulador, producto) => acumulador + producto.cantidad,
-                      0
-                     )
-                    ):(
-                     0
-                    )}
-                  </span>
-                </div>
+                <div className='absolute bottom-2 right-1 bg-orange-600 rounded-full px-2'></div>
               </div>
-            </button>
+            </Link>
             {isAuthenticated ? (
               <li className='flex justify-center  items-center text-gray-600 md:mr-12 hover:text-orange-600'>
                 <Logout />

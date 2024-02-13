@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
+import { CartProvider } from "./context/CartContext.jsx";
 import Tienda from "./page/Tienda/Tienda";
 import store from "./redux/store.js";
 import { Auth0Provider } from "@auth0/auth0-react";
@@ -14,6 +15,7 @@ import About from "./Components/About/About";
 import Carrito from "./Components/Carrito/Carrito";
 import DetailProduct from "./Components/ProductDetail/ProductDetail";
 import { Login } from "./Components/Login/Login";
+import ShoppingCart from "./page/ShoppingCart/ShoppingCart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <Login />,
       },
-      { path: "/carrito", element: <Carrito /> },
+      { path: "/carrito", element: <ShoppingCart /> },
       {
         path: "/DetailProduct/:id",
         element: <DetailProduct />,
@@ -62,7 +64,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       redirect_uri: window.location.origin,
     }}>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </Provider>
   </Auth0Provider>
 );

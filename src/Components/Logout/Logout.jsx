@@ -5,7 +5,6 @@ import { createUser } from "../../redux/actions";
 
 const Logout = () => {
   const { logout, isAuthenticated, user } = useAuth0();
-  console.log(user?.email);
 
   const dispatch = useDispatch();
 

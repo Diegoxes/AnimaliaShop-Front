@@ -13,6 +13,7 @@ import {
   REMOVE_ONE_FROM_CART,
   SET_INITIAL_CART,
   CREATE_USER,
+  GET_CART,
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -206,10 +207,15 @@ export const setInitialCart = (cart) => (dispatch) => {
 // };
 
 export const createUser = (email, name, picture) => {
-  const endpoint = "/users";
+  const endpoint = "users";
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { email, name, picture });
+      const { data } = await axios.post(`${URL}/${endpoint}`, {
+        email,
+        name,
+        picture,
+      });
+
       if (!data) throw new Error("There was no data");
       return dispatch({
         type: CREATE_USER,
@@ -219,4 +225,18 @@ export const createUser = (email, name, picture) => {
       throw new Error(error.message);
     }
   };
+};
+
+export const getCart = (email) => async (dispatch) => {
+  try {
+    const { data } = await axios(`${URL}/cart`, { params: { email: email } });
+    console.log(data);
+
+    await dispatch({
+      type: GET_CART,
+      payload: data,
+    });
+  } catch (error) {
+    throw new Error("Error GET cart products:", error);
+  }
 };

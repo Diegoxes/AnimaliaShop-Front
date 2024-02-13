@@ -11,9 +11,6 @@ const Tienda = () => {
   const currentPage = useSelector((state) => state.currentPage);
   const totalProductos = useSelector((state) => state.totalProductos);
 
-  console.log("Total de Producto", totalProductos);
-  console.log("current Page: ", currentPage);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
