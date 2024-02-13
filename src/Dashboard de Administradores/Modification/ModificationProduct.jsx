@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 
  const ModificationProduct = () => {
     const { id } = useParams();
@@ -221,6 +221,9 @@ import axios from "axios";
           Enviar
         </button>
       </form>
+      <Link to="/dashboard/HomeDashboard" className="block mt-4 text-center text-blue-500 hover:underline">
+        Volver a HomeDashboard
+      </Link>
     </div>
     )
 

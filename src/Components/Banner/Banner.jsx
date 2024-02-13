@@ -2,6 +2,9 @@ import React from "react";
 import style from "./Banner.module.css";
 
 const Banner = ({ banner }) => {
+  if (!banner) {
+    return null; 
+  }
   return (
     <>
       <div className='relative  container-fluid'>
