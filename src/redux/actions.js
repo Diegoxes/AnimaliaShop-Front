@@ -205,11 +205,11 @@ export const setInitialCart = (cart) => (dispatch) => {
 //   };
 // };
 
-export const createUser = (email, name, picture) => {
-  const endpoint = "/users";
+export const createUser = (email,name,picture) => {
+  const endpoint = "users";
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { email, name, picture });
+      const { data } = await axios.post(`${URL}/${endpoint}`, { email, name, picture });
       if (!data) throw new Error("There was no data");
       return dispatch({
         type: CREATE_USER,
@@ -220,3 +220,4 @@ export const createUser = (email, name, picture) => {
     }
   };
 };
+
