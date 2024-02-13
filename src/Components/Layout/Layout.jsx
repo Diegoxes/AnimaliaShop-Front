@@ -6,8 +6,10 @@ import Navbar from "../Navbar/Navbar";
 const Layout = () => {
   const location = useLocation();
   const { id } = useParams();
+  
 
   const getBannerText = () => {
+   
     switch (location.pathname) {
       case "/":
         return {
@@ -38,30 +40,38 @@ const Layout = () => {
           texto: "Carrito de compras",
           imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
         };
-      case `/dashboard/formularioProducto`:
-        return {
-          texto: "Creando el Producto",
-          imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
-        };
-      case `/formularioCategoria`:
-        return {
-          texto: "Creando la categoria",
-          imagen: "https://i.blogs.es/7a9c5d/carrito/450_1000.jpg",
-        };
-        case `/Dashboard`:
-        return {
-          texto: "Detalle del Producto",
-          imagen:
+        case `/dashboard`:
+          return {
+            texto: "Panel de Administracion de usuarios",
+            imagen:
+              "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+          };
+          case `/dashboard/HomeDashboard`:
+            return {
+              texto: "Dashboard",
+              imagen:
+                "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+            };
+          case `/dashboard/creationProduct`:
+          return {
+            texto: "Creacion de Producto",
+            imagen:
+              "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+          };
+          case `/dashboard/creationCategory`:
+          return {
+            texto: "Creacion de Categoria",
+            imagen:
+              "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+          };
+          case `/dashboard/modifications/product/${id}`:
+          return {
+            texto:"Modificar producto",
+            imagen:
             "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
+          }
+        }
         };
-        case `/modifications/product/${id}`:
-        return {
-          texto: "Detalle del Producto",
-          imagen:
-            "https://seguros.elcorteingles.es/content/dam/eci-seguros/es/blog/blog-julio-2023/incluir-mascota-seguro-hogar.jpg.thumb.800.480.png",
-        };
-    }
-  };
 
   return (
     <div>
