@@ -1,12 +1,17 @@
 import React from "react";
 import InterestProducts from "../../Components/InterestProducts/InterestProducts";
+
+import Footer from "../../Components/Footer/Footer";
+import ReviewList from "../../components/testimonios/ReviewList";
+import InputReview from "../../Components/testimonios/InputReview";
+
 import ReviewList from "../../components/testimonios/ReviewList";
 import InputReview from "../../components/testimonios/InputReview";
+
 
 const Home = () => {
   return (
     <div>
-      <h1>Prueba del Home</h1>
       <InterestProducts />
       <div>
         <div className="mb-10">
@@ -18,6 +23,7 @@ const Home = () => {
         </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

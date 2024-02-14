@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, deleteFromCart } from "../../redux/actions";
+import { addToCart, deleteFromCart, sendCartinBack } from "../../redux/actions";
 
 const Carrito = () => {
   const dispatch = useDispatch();
@@ -141,7 +141,9 @@ const Carrito = () => {
               </div>
 
               <div className='mt-6 text-center'>
-                <button
+                <button onClick={() => {
+                  dispatch(sendCartinBack(productItem))
+                }}
                   type='button'
                   className='group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800'>
                   Checkout

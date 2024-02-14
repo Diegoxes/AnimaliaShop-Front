@@ -62,9 +62,6 @@ function Navbar() {
               <Link to={`/`}>Inicio</Link>
             </li>
             <li className='text-gray-600 md:mr-12 hover:text-orange-600'>
-              <Link to={`/about`}>Sobre Nosotros</Link>
-            </li>
-            <li className='text-gray-600 md:mr-12 hover:text-orange-600'>
               <Link to={`/tienda`}>Tienda</Link>
             </li>
 
