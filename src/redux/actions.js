@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
   FILTER_BY_NAME,
   SET_PRODUCTS,
@@ -16,6 +14,7 @@ import {
   SET_REVIEWS,
   ADD_REVIEW,
 } from "./actionTypes";
+import axios from "axios";
 
 const URL = "http://localhost:3001";
 
@@ -224,16 +223,29 @@ export const createUser = (email, name, picture) => {
       });
     } catch (error) {
       throw new Error(error.message);
-}
-};
+    }
+  };
 };
 
-export const sendCartinBack = (productos) => async (dispatch) => {
-  const response = await axios.post("/createOrder", productos);
-  console.log(response);
+// export const sendCartinBack = (productos) => async (dispatch) => {
+//   const response = await axios.post("/createOrder", productos);
+//   console.log(response);
 
-  if (response.status === 200) {
-    console.log("Carrito enviado con exito al backend");
+//   if (response.status === 200) {
+//     console.log("Carrito enviado con exito al backend");
+//   }
+// };
+
+export const getCart = (email) => async (dispatch) => {
+  try {
+    const { data } = await axios(`${URL}/cart`, { params: { email: email } });
+
+    await dispatch({
+      type: GET_CART,
+      payload: data,
+    });
+  } catch (error) {
+    throw new Error("Error GET cart products:", error);
   }
 };
 
@@ -266,39 +278,6 @@ export const fetchReviews = () => {
     }
   };
 };
-
-
-
-//////////// R E V I E W //////////////////
-// Acción para establecer las revisiones en el estado
-export const setReviews = (reviews) => ({
-  type: SET_REVIEWS,
-  payload: reviews,
-});
-
-// Acción para agregar una revisión al estado
-export const addReview = (review) => ({
-  type: ADD_REVIEW,
-  payload: review,
-});
-
-// Acción para obtener todas las revisiones desde el servidor
-export const fetchReviews = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`${URL}/review`);
-      console.log('Complete response from server:', response);
-      if (response.data) {
-        dispatch(setReviews(response.data));
-      } else {
-        // console.error('Invalid response format:', response);
-      }
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
-    }
-  };
-};
-
 
 // Acción para enviar una nueva revisión al servidor
 export const postReview = (reviewData) => {

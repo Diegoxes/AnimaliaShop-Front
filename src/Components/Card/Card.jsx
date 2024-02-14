@@ -1,17 +1,9 @@
 import React from "react";
 import { FaCartPlus, FaCartArrowDown } from "react-icons/fa";
 import { BiDetail } from "react-icons/bi";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToCart } from "../../redux/actions";
 
 const Card = ({ id, title, price, image, category }) => {
-  const dispatch = useDispatch();
-
-  const carrito = useSelector((state) => state.carrito) || [];
-
-  const isProductInCart = carrito.find((item) => item.id === id);
-
   return (
     <div
       key={id}
@@ -43,23 +35,13 @@ const Card = ({ id, title, price, image, category }) => {
 
           <span className='text-white uppercase'>Ver Detalles</span>
         </Link>
-        {isProductInCart ? (
-          <Link
-            to={`/carrito`}
-            className='flex items-center justify-center rounded-md  px-5 py-2.5 text-center text-sm font-medium text-white bg-amber-900 hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-blue-300'>
-            <FaCartPlus className='text-3xl pr-2' />
-            <span className='text-white uppercase'>Ver Carrito</span>
-          </Link>
-        ) : (
-          <Link
-            onClick={() => dispatch(addToCart(id))}
-            className='flex items-center justify-center rounded-md  px-5 py-2.5 text-center text-sm font-medium text-white bg-amber-900 hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-blue-300'>
-            <FaCartArrowDown className='text-2xl' />
-            <span className='text-white uppercase pl-3'>
-              Agregar Al Carrito
-            </span>
-          </Link>
-        )}
+
+        <Link
+          to='/carrito'
+          className='flex items-center justify-center rounded-md  px-5 py-2.5 text-center text-sm font-medium text-white bg-amber-900 hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-blue-300'>
+          <FaCartArrowDown className='text-2xl' />
+          <span className='text-white uppercase pl-3'>Agregar Al Carrito</span>
+        </Link>
       </div>
     </div>
   );

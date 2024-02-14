@@ -14,5 +14,6 @@ export const CLEAR_CART = "CLEAN_CART";
 export const GET_DETAIL = "GET_DETAIL";
 export const SET_INITIAL_CART = "SET_INITIAL_CART";
 export const CREATE_USER = "CREATE_USER";
+export const GET_CART = "GET_CART";
 export const SET_REVIEWS = "SET_REVIEWS";
-export const ADD_REVIEW = "ADD_REVIEW"; 
+export const ADD_REVIEW = "ADD_REVIEW";

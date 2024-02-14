@@ -3,6 +3,7 @@ import {
   CLEAR_CART,
   FILTER_BY_NAME,
   FILTER_PRODUCTS_BY_CATEGORY,
+  GET_CART,
   GET_DETAIL,
   PAGINATION,
   REMOVE_ALL_FROM_CART,
@@ -14,7 +15,7 @@ import {
   SET_PRODUCTS,
   SORT_PRODUCTS_BY_PRICE,
   SET_REVIEWS,
-  ADD_REVIEW
+  ADD_REVIEW,
 } from "./actionTypes";
 
 const initialState = {
@@ -26,7 +27,7 @@ const initialState = {
   totalProductos: 0,
   carrito: [],
   productDetail: {},
-  reviews: []
+  reviews: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -156,84 +157,90 @@ const rootReducer = (state = initialState, action) => {
 
     // Reducer para el carrito
 
-    case ADD_TO_CART:
-      const newItem = state.backupProductos.find(
-        (item) => item.id === action.payload
-      );
+    // case ADD_TO_CART:
+    //   const newProduct = state.backupProductos.find(
+    //     (product) => product.id === action.payload
+    //   );
 
-      // { id: 2, title: "pooph" }
+    //   // newItem = busca el id que es pasado por el action en la base de datos
+    //   const isCart = state.carrito.find(
+    //     (product) => product.id === newProduct.id
+    //   );
 
-      // newItem = busca el id que es pasado por el action en la base de datos
+    //   const availableStock = newProduct.stock - (isCart ? isCart.cantidad : 0);
 
-      const itemsCart = state.carrito.find((item) => item.id === newItem.id);
+    //   if (availableStock <= 0) {
+    //     console.log("No hay suficiente stock");
+    //     return state;
+    //   }
 
-      // busca el id en el carrito de compras
+    //   console.log(isCart);
+    //   // busca el id en el carrito de compras
+    //   return isCart
+    //     ? {
+    //         ...state,
+    //         carrito: state.carrito.map((product) =>
+    //           product.id === newProduct.id
+    //             ? { ...product, cantidad: product.cantidad + 1 }
+    //             : product
+    //         ),
+    //       }
+    //     : {
+    //         ...state,
+    //         carrito: [...state.carrito, { ...newProduct, cantidad: 1 }],
+    //       };
 
-      // {id: 2, title: "pooph"} === {id: 3, title: "ropa"}
+    // case REMOVE_ONE_FROM_CART:
+    //   const SearchProductCart = state.carrito.find(
+    //     (item) => item.id === action.payload
+    //   );
 
-      return itemsCart
-        ? {
-            ...state,
-            carrito: state.carrito.map(
-              (
-                producto // [{ id: 2, title: 'pooph }] === {id:2}
-              ) =>
-                producto.id === newItem.id
-                  ? { ...producto, cantidad: producto.cantidad + 1 }
-                  : producto
-            ),
-          }
-        : {
-            ...state,
-            carrito: [...state.carrito, { ...newItem, cantidad: 1 }],
-          };
+    //   return SearchProductCart.cantidad > 1
+    //     ? {
+    //         ...state,
+    //         carrito: state.carrito.map((item) =>
+    //           item.id === action.payload
+    //             ? {
+    //                 ...item,
+    //                 cantidad: item.cantidad - 1,
+    //               }
+    //             : item
+    //         ),
+    //       }
+    //     : {
+    //         ...state,
+    //         carrito: state.carrito.filter((item) => item.id !== action.payload),
+    //       };
 
-    case REMOVE_ONE_FROM_CART:
-      const SearchProductCart = state.carrito.find(
-        (item) => item.id === action.payload
-      );
-
-      return SearchProductCart.cantidad > 1
-        ? {
-            ...state,
-            carrito: state.carrito.map((item) =>
-              item.id === action.payload
-                ? {
-                    ...item,
-                    cantidad: item.cantidad - 1,
-                  }
-                : item
-            ),
-          }
-        : {
-            ...state,
-            carrito: state.carrito.filter((item) => item.id !== action.payload),
-          };
-
-    case REMOVE_ALL_FROM_CART:
-      return {
-        ...state,
-        carrito: state.carrito.filter((item) => item.id !== action.payload),
-      };
-    case SET_INITIAL_CART:
+    // case REMOVE_ALL_FROM_CART:
+    //   return {
+    //     ...state,
+    //     carrito: state.carrito.filter((item) => item.id !== action.payload),
+    //   };
+    // case SET_INITIAL_CART:
+    //   return {
+    //     ...state,
+    //     carrito: action.payload,
+    //   };
+    case GET_CART:
       return {
         ...state,
         carrito: action.payload,
       };
 
-////////// R E V I E W S ////////////////////////////
-case SET_REVIEWS:
-  return {
-    ...state,
-    reviews: action.payload
-  };
+    ////////// R E V I E W S ////////////////////////////
+    case SET_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
 
-  case ADD_REVIEW:
-    return { 
-      ...state, 
-      reviews: [...state.reviews, action.payload]
-    };
-/////////////////////////////////////////////////////
+    case ADD_REVIEW:
+      return {
+        ...state,
+        reviews: [...state.reviews, action.payload],
+      };
+    /////////////////////////////////////////////////////
 
     default:
       return {

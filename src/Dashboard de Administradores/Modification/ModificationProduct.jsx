@@ -5,123 +5,126 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
- const ModificationProduct = () => {
-    const { id } = useParams();
+const ModificationProduct = () => {
+  const { id } = useParams();
 
-    const [categories, setCategories] = useState([]);
-    const [previewImage, setPreviewImage] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [previewImage, setPreviewImage] = useState("");
 
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    price: "",
+    stock: "",
+    available: "",
+    image: null,
+  });
 
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        category: '',
-        price: '',
-        stock: '',
-        available: '',
-        image:null,
-
-    });
-
-    useEffect(() =>{
-        const fetchProductData = async () =>{
-            try {
-                const response = await axios.get(`https://animaliashop-backend.onrender.com/products/${id}`);
-                const productData = response.data;
-                setFormData(productData);
-            } catch (error) {
-                console.error('Error al obtener datos del producto:', error.message);
-            }
-        };
-
-        fetchProductData();
-    }, [id]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-          try {
-            const response = await fetch("https://animaliashop-backend.onrender.com/categories");
-            if (response.ok) {
-              const data = await response.json();
-              setCategories(data);
-            } else {
-              console.error(
-                "Error al obtener las categorías:",
-                response.statusText
-              );
-            }
-          } catch (error) {
-            console.error("Error al obtener las categorías:", error);
-          }
-        };
-    
-        fetchCategories();
-      }, []);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value,
-        }));
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await axios.get(
+          `https://animaliashop-backend.onrender.com/products/${id}`
+        );
+        const productData = response.data;
+        setFormData(productData);
+      } catch (error) {
+        console.error("Error al obtener datos del producto:", error.message);
+      }
     };
 
+    fetchProductData();
+  }, [id]);
 
-
-    const handleImage = async (event) => {
-        const selectedImage = event.target.files[0];
-    
-        if (selectedImage) {
-          setPreviewImage(URL.createObjectURL(selectedImage));
-    
-          try {
-            const formData = new FormData();
-            formData.append("image", selectedImage);
-    
-            const cloudinaryResponse = await fetch(
-              "http://localhost:3001/uploadImage",
-              {
-                method: "POST",
-                body: formData,
-              }
-            );
-    
-            if (cloudinaryResponse.ok) {
-              const cloudinaryData = await cloudinaryResponse.json();
-              setFormData((prevData) => ({
-                ...prevData,
-                image: cloudinaryData.imageUrl,
-              }));
-            } else {
-              console.error(
-                "Error al subir la imagen a Cloudinary:",
-                cloudinaryResponse.statusText
-              );
-            }
-          } catch (error) {
-            console.error("Error al enviar la imagen a Cloudinary:", error);
-          }
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(
+          "https://animaliashop-backend.onrender.com/categories"
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
         } else {
-          setPreviewImage("");
+          console.error(
+            "Error al obtener las categorías:",
+            response.statusText
+          );
         }
-      };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        
-        try {
-            const response = await axios.put(`https://animaliashop-backend.onrender.com/products/${id}`, {
-                ...formData,
-            });
-
-            console.log('Solicitud PUT exitosa:', response.data);
-        } catch (error) {
-            console.error('Error al enviar la solicitud PUT:', error.message);
-        }
+      } catch (error) {
+        console.error("Error al obtener las categorías:", error);
+      }
     };
 
-    return(
-        <div className='max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700'>
+    fetchCategories();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleImage = async (event) => {
+    const selectedImage = event.target.files[0];
+
+    if (selectedImage) {
+      setPreviewImage(URL.createObjectURL(selectedImage));
+
+      try {
+        const formData = new FormData();
+        formData.append("image", selectedImage);
+
+        const cloudinaryResponse = await fetch(
+          "https://animaliashop-backend.onrender.com/uploadImage",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (cloudinaryResponse.ok) {
+          const cloudinaryData = await cloudinaryResponse.json();
+          setFormData((prevData) => ({
+            ...prevData,
+            image: cloudinaryData.imageUrl,
+          }));
+        } else {
+          console.error(
+            "Error al subir la imagen a Cloudinary:",
+            cloudinaryResponse.statusText
+          );
+        }
+      } catch (error) {
+        console.error("Error al enviar la imagen a Cloudinary:", error);
+      }
+    } else {
+      setPreviewImage("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.put(
+        `https://animaliashop-backend.onrender.com/products/${id}`,
+        {
+          ...formData,
+        }
+      );
+
+      console.log("Solicitud PUT exitosa:", response.data);
+    } catch (error) {
+      console.error("Error al enviar la solicitud PUT:", error.message);
+    }
+  };
+
+  return (
+    <div className='max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700'>
       <h2 className='text-2xl font-bold mb-4 text-center text-blue-500'>
         Edicion de Producto
       </h2>
@@ -160,7 +163,7 @@ import { Link } from "react-router-dom";
             onChange={handleChange}
             step='0.01'
             className='w-full px-3 py-2 border rounded'
-          />   
+          />
         </div>
 
         <div className='mb-4'>
@@ -215,20 +218,15 @@ import { Link } from "react-router-dom";
           />
         </div>
 
-        <button
-          type='submit'>
-            
-          Enviar
-        </button>
+        <button type='submit'>Enviar</button>
       </form>
-      <Link to="/dashboard/HomeDashboard" className="block mt-4 text-center text-blue-500 hover:underline">
-        Volver a HomeDashboard
+      <Link
+        to='/dashboard/HomeDashboard'
+        className='block mt-4 text-center text-blue-500 hover:underline'>
+        Volver a Home Dashboard
       </Link>
     </div>
-    )
+  );
+};
 
- };
-   
-  
-
- export default ModificationProduct;
+export default ModificationProduct;
