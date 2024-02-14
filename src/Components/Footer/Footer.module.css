@@ -1,6 +1,6 @@
 /* Footer.module.css */
 .footer {
-    background-color: rgba(2, 2, 7, 0.907);
+    background: linear-gradient(#f39c12, rgba(0, 0, 0, 0.972))
   }
   
   .footer-nav {

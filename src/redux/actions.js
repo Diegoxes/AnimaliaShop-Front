@@ -188,11 +188,28 @@ export const setInitialCart = (cart) => (dispatch) => {
 };
 
 //CREACION DE USUARIOS
+// export const createUser = (email) => {
+//   const endpoint = `${URL}/users`;
+//   return async (dispatch) => {
+//     try {
+//       const { data } = await axios.post(endpoint, email);
+//       console.log(data);
+
+//       if (!data) throw new Error("There was no data");
+//       return dispatch({
+//         type: CREATE_USER,
+//       });
+//     } catch (error) {
+//       throw new Error(error.message);
+//     }
+//   };
+// };
+
 export const createUser = (email,name,picture) => {
-  const endpoint = "/users";
+  const endpoint = "users";
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, { email, name, picture });
+      const { data } = await axios.post(`${URL}/${endpoint}`, { email, name, picture });
       if (!data) throw new Error("There was no data");
       return dispatch({
         type: CREATE_USER,
@@ -200,8 +217,8 @@ export const createUser = (email,name,picture) => {
       });
     } catch (error) {
       throw new Error(error.message);
-    }
-  };
+}
+};
 };
 
 export const sendCartinBack = (productos) => async (dispatch) => {
@@ -212,3 +229,4 @@ export const sendCartinBack = (productos) => async (dispatch) => {
     console.log("Carrito enviado con exito al backend");
   }
 };
+

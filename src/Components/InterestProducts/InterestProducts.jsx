@@ -22,7 +22,7 @@ const InterestProducts = () => {
 
   return (
     <>
-      <h2 className={styles.interestTitle}>Lo que te puede interesar</h2>
+      <h2 className={styles.interestTitle}>Lo que te puede interesar:</h2>
       <div className={styles.interestGrid}>
         {selectedProductos.map((producto) => (
           <Card
