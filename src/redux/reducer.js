@@ -14,6 +14,8 @@ import {
   // GET_TITLES,
   SET_PRODUCTS,
   SORT_PRODUCTS_BY_PRICE,
+  SET_REVIEWS,
+  ADD_REVIEW
 } from "./actionTypes";
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   totalProductos: 0,
   carrito: [],
   productDetail: {},
+  reviews: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -224,6 +227,20 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         carrito: action.payload,
       };
+
+////////// R E V I E W S ////////////////////////////
+case SET_REVIEWS:
+  return {
+    ...state,
+    reviews: action.payload
+  };
+
+  case ADD_REVIEW:
+    return { 
+      ...state, 
+      reviews: [...state.reviews, action.payload]
+    };
+/////////////////////////////////////////////////////
 
     default:
       return {
