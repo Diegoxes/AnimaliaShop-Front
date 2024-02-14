@@ -5,8 +5,6 @@ import Footer from "../../Components/Footer/Footer";
 import ReviewList from "../../components/testimonios/ReviewList";
 import InputReview from "../../Components/testimonios/InputReview";
 
-import ReviewList from "../../components/testimonios/ReviewList";
-import InputReview from "../../components/testimonios/InputReview";
 
 
 const Home = () => {
