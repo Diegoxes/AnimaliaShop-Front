@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { fetchReviews } from '../../redux/actions';
+import {fetchReviews} from "../../redux/actions"
 import Review from './Review';
 
 const ReviewList = () => {

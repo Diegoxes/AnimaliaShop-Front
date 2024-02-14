@@ -16,4 +16,3 @@ export const SET_INITIAL_CART = "SET_INITIAL_CART";
 export const CREATE_USER = "CREATE_USER";
 export const SET_REVIEWS = 'SET_REVIEWS';
 export const ADD_REVIEW = 'ADD_REVIEW';
-export const REVIEW_ERROR = 'REVIEW_ERROR';

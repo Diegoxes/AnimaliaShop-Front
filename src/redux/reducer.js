@@ -15,7 +15,6 @@ import {
   SORT_PRODUCTS_BY_PRICE,
   SET_REVIEWS,
   ADD_REVIEW,
-  REVIEW_ERROR
 } from "./actionTypes";
 
 const initialState = {
@@ -223,17 +222,17 @@ const rootReducer = (state = initialState, action) => {
       };
 
 ////////// R E V I E W S ////////////////////////////
-case ADD_REVIEW:
-      return {
-        ...state,
-        reviews: [...state.reviews, action.payload.review],
-        error: null,
-      };
-    case REVIEW_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-      };
+case SET_REVIEWS:
+  return {
+    ...state,
+    reviews: action.payload
+  };
+
+  case ADD_REVIEW:
+    return { 
+      ...state, 
+      reviews: [...state.reviews, action.payload]
+    };
 /////////////////////////////////////////////////////
 
     default:
