@@ -6,6 +6,9 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ModificationProduct = () => {
+  // const URL = "http://localhost:3001"
+  const URL = "https://animaliashop-backend.onrender.com";
+
   const { id } = useParams();
 
   const [categories, setCategories] = useState([]);
@@ -24,9 +27,7 @@ const ModificationProduct = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(
-          `https://animaliashop-backend.onrender.com/products/${id}`
-        );
+        const response = await axios.get(`${URL}/products/${id}`);
         const productData = response.data;
         setFormData(productData);
       } catch (error) {
@@ -40,9 +41,7 @@ const ModificationProduct = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(
-          "https://animaliashop-backend.onrender.com/categories"
-        );
+        const response = await fetch(`${URL}/categories`);
         if (response.ok) {
           const data = await response.json();
           setCategories(data);
@@ -78,13 +77,10 @@ const ModificationProduct = () => {
         const formData = new FormData();
         formData.append("image", selectedImage);
 
-        const cloudinaryResponse = await fetch(
-          "https://animaliashop-backend.onrender.com/uploadImage",
-          {
-            method: "POST",
-            body: formData,
-          }
-        );
+        const cloudinaryResponse = await fetch(`${URL}/uploadImage`, {
+          method: "POST",
+          body: formData,
+        });
 
         if (cloudinaryResponse.ok) {
           const cloudinaryData = await cloudinaryResponse.json();
@@ -110,12 +106,9 @@ const ModificationProduct = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.put(
-        `https://animaliashop-backend.onrender.com/products/${id}`,
-        {
-          ...formData,
-        }
-      );
+      const response = await axios.put(`${URL}/products/${id}`, {
+        ...formData,
+      });
 
       console.log("Solicitud PUT exitosa:", response.data);
     } catch (error) {
