@@ -10,10 +10,17 @@ const HomeDashboard = () => {
 
   const ObtenerDatos = async () => {
     try {
+<<<<<<< HEAD
       const responseProduct = await fetch('https://animaliashop-backend.onrender.com/products');
       const dataProducts = await responseProduct.json();
 
       const responseCategory = await fetch('https://animaliashop-backend.onrender.com/categories');
+=======
+      const responseProduct = await fetch('http://localhost:3001/products');
+      const dataProducts = await responseProduct.json();
+
+      const responseCategory = await fetch('http://localhost:3001/categories');
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
       const dataCategories = await responseCategory.json();
 
       setProductData(dataProducts);
@@ -28,7 +35,11 @@ const HomeDashboard = () => {
 
     if (confirmDelete) {
       try {
+<<<<<<< HEAD
         const response = await fetch(`https://animaliashop-backend.onrender.com/deleteCategories/${categoryName}`, {
+=======
+        const response = await fetch(`http://localhost:3001/deleteCategories/${categoryName}`, {
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
           method: 'DELETE',
         });
     
@@ -50,7 +61,11 @@ const HomeDashboard = () => {
 
     if (confirmDelete) {
       try {
+<<<<<<< HEAD
         const response = await fetch(`https://animaliashop-backend.onrender.com/deleteProduct/${productId}`, {
+=======
+        const response = await fetch(`http://localhost:3001/deleteProduct/${productId}`, {
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
           method: 'DELETE',
         });
 
@@ -136,7 +151,11 @@ const HomeDashboard = () => {
                 <img src={category.image} alt={category.category} className="mx-auto mb-4 max-w-full" style={{ height: '200px' }} />
                 <div className="flex justify-center">
                   <button onClick={() => handleDeleteCategory(category.category)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Eliminar</button>
+<<<<<<< HEAD
                   <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Editar</button>
+=======
+             
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
                 </div>
               </div>
             ))}

@@ -14,8 +14,12 @@ import {
   SET_INITIAL_CART,
   CREATE_USER,
   SET_REVIEWS,
+<<<<<<< HEAD
   ADD_REVIEW
   
+=======
+  ADD_REVIEW,
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
 } from "./actionTypes";
 
 const URL = "https://animaliashop-backend.onrender.com";
@@ -208,15 +212,27 @@ export const setInitialCart = (cart) => (dispatch) => {
 //   };
 // };
 
+<<<<<<< HEAD
 // export const createUser = (email, name, picture) => {
 //   const endpoint = "http://localhost:3001/users";
 
 export const createUser = (email,name,picture) => {
+=======
+export const createUser = (email, name, picture) => {
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
   const endpoint = "users";
 
   return async (dispatch) => {
     try {
+<<<<<<< HEAD
       const { data } = await axios.post(`${URL}/${endpoint}`, { email, name, picture });
+=======
+      const { data } = await axios.post(`${URL}/${endpoint}`, {
+        email,
+        name,
+        picture,
+      });
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
       if (!data) throw new Error("There was no data");
       return dispatch({
         type: CREATE_USER,
@@ -235,7 +251,42 @@ export const sendCartinBack = (productos) => async (dispatch) => {
   if (response.status === 200) {
     console.log("Carrito enviado con exito al backend");
   }
+<<<<<<< HEAD
+=======
 };
+
+//////////// R E V I E W //////////////////
+// Acción para establecer las revisiones en el estado
+export const setReviews = (reviews) => ({
+  type: SET_REVIEWS,
+  payload: reviews,
+});
+
+// Acción para agregar una revisión al estado
+export const addReview = (review) => ({
+  type: ADD_REVIEW,
+  payload: review,
+});
+
+// Acción para obtener todas las revisiones desde el servidor
+export const fetchReviews = () => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(`${URL}/review`);
+      console.log("Complete response from server:", response);
+      if (response.data) {
+        dispatch(setReviews(response.data));
+      } else {
+        // console.error('Invalid response format:', response);
+      }
+    } catch (error) {
+      console.error("Error fetching reviews:", error);
+    }
+  };
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
+};
+
+
 
 //////////// R E V I E W //////////////////
 // Acción para establecer las revisiones en el estado
@@ -267,6 +318,7 @@ export const fetchReviews = () => {
   };
 };
 
+
 // Acción para enviar una nueva revisión al servidor
 export const postReview = (reviewData) => {
   return async (dispatch) => {
@@ -274,8 +326,11 @@ export const postReview = (reviewData) => {
       const response = await axios.post(`${URL}/upreview`, reviewData);
       dispatch(addReview(response.data.review));
     } catch (error) {
-      console.error('Error al enviar la revisión:', error);
+      console.error("Error al enviar la revisión:", error);
     }
   };
 };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68

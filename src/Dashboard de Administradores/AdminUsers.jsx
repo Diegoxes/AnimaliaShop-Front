@@ -6,7 +6,11 @@ const AdminUser = () => {
 
     const fetchUsers = async () => {
         try {
+<<<<<<< HEAD
             const response = await fetch('https://animaliashop-backend.onrender.com/users');
+=======
+            const response = await fetch('http://localhost:3001/users');
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
             const data = await response.json();
 
             setUsers(data);
@@ -21,7 +25,11 @@ const AdminUser = () => {
 
     const handleUpdateRole = async (userId, isAdmin) => {
         try {
+<<<<<<< HEAD
             const response = await fetch(`https://animaliashop-backend.onrender.com/users/${userId}/role`, {
+=======
+            const response = await fetch(`http://localhost:3001/users/${userId}/role`, {
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -51,7 +59,11 @@ const AdminUser = () => {
 
     const handleBanUser = async (userId, isBanned) => {
         try {
+<<<<<<< HEAD
             const response = await fetch(`https://animaliashop-backend.onrender.com/users/${userId}/banned`, {
+=======
+            const response = await fetch(`http://localhost:3001/users/${userId}/banned`, {
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

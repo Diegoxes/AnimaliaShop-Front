@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 //  React, hooks y componentes de React
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
@@ -68,16 +69,36 @@ const App = () => {
 };
 
 ReactDOM.render(
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Auth0Provider } from '@auth0/auth0-react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import store from './redux/store';
+import App from './App';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
   <Auth0Provider
     domain="dev-8yon50uzqfmitkhc.us.auth0.com"
     clientId="3iFSloLFrYZXKOOuPTkfepY4zNhNByI3"
     redirectUri={window.location.origin}
   >
     <Provider store={store}>
+<<<<<<< HEAD
       <App />
+=======
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
     </Provider>
   </Auth0Provider>,
   document.getElementById('root')
 );
+<<<<<<< HEAD
 
 // verification comment for deploy 3
+=======
+>>>>>>> 265b6ad3769bdd51cd7657a583b2a5062edb4d68
