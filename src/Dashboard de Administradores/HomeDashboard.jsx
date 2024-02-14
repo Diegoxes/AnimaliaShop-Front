@@ -136,7 +136,7 @@ const HomeDashboard = () => {
                 <img src={category.image} alt={category.category} className="mx-auto mb-4 max-w-full" style={{ height: '200px' }} />
                 <div className="flex justify-center">
                   <button onClick={() => handleDeleteCategory(category.category)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Eliminar</button>
-                  <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Editar</button>
+             
                 </div>
               </div>
             ))}
