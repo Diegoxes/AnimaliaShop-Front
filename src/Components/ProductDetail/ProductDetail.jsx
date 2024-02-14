@@ -33,8 +33,11 @@ const DetailProduct = () => {
           quantity,
         };
         await agregarAlCarrito(productDetail, quantity);
-        await axios.post("http://localhost:3001/cart", item);
-        console.log(item);
+        const { data } = await axios.post(
+          "https://animaliashop-backend.onrender.com/cart",
+          item
+        );
+        console.log(data);
       } catch (error) {
         throw new Error("Error en el pedido al back " + error.message);
       }

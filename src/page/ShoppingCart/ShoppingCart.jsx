@@ -26,7 +26,7 @@ const ShoppingCart = () => {
     "pk_test_51OjXz3D35VXiJ0k2efkioGRvAVZmrQskKZhpKrYVYVlVAKQorWNjGD3UD1iusLII3LZ1bhdaauWgXWLZaxgITG9D00I7JAuO4c"
   );
 
-  const URL = "http://localhost:3001";
+  const URL = "https://animaliashop-backend.onrender.com";
 
   let cartItems = [];
   if (isAuthenticated && isCart && isCart.Products) {
