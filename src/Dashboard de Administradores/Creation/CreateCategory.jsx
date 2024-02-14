@@ -72,6 +72,12 @@ const CreateCategory = () => {
         formDataToSend.append("category",formData.category)
         formDataToSend.append("image",formData.image)
  
+        const existingCategories = await axios.get('http://localhost:3001/categories');
+        if (existingCategories.data.some(cat => cat.category.toLowerCase() === formData.category.toLowerCase())) {
+          setFormHasErrors(true);
+          setFormErrors({ category: '¡La categoría ya existe!' });
+          return;
+        }
        const response = await axios.post('http://localhost:3001/categories/create', formDataToSend, {
          headers: {
            'Content-Type': 'multipart/form-data',
