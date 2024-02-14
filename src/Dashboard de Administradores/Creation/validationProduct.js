@@ -30,7 +30,7 @@ const validation = (formData) => {
   if (formData.stock.trim() === "") {
     errors.stock = "El stock es obligatorio";
   } else if (parseInt(formData.stock) <= 0) {
-    errors.stock = "El stock debe ser mayor a 0";
+    errors.stock = "El stock debe ser mayor a 0 y entero ";
   }
 
   return errors;

@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import HomeDashboard from '../src/Dashboard de Administradores/HomeDashboard.jsx';
 import CreateCategory from '../src/Dashboard de Administradores/Creation/CreateCategory.jsx';
 import CreateProduct from '../src/Dashboard de Administradores/Creation/CreateProduct.jsx';
-import ModificationCategory from '../src/Dashboard de Administradores/Modification/ModificationCategory.jsx';
+
 import ModificationProduct from '../src/Dashboard de Administradores/Modification/ModificationProduct.jsx';
 import AdminUsers from '../src/Dashboard de Administradores/AdminUsers.jsx';
 
@@ -23,7 +23,9 @@ const DashboardRoutes = () => {
           const response = await fetch('http://localhost:3001/users');
           const users = await response.json();
           const authenticatedUser = users.find(u => u.email === user.email);
-          setIsAdmin(authenticatedUser && authenticatedUser.isAdmin);
+          if(authenticatedUser){
+            setIsAdmin( authenticatedUser.isAdmin);
+         }
         } catch (error) {
           console.error('Error fetching user data:', error);
         } finally {
@@ -52,7 +54,7 @@ const DashboardRoutes = () => {
         <Route path="/" element={<AdminUsers />}/>
         <Route path="/creationCategory" element={<CreateCategory />} />
         <Route path="/creationProduct" element={<CreateProduct />} />
-        <Route path="/modifications/category" element={<ModificationCategory />} /> 
+        
        <Route path="/modifications/product/:id" element={<ModificationProduct />} />
         
         <Route path="/HomeDashboard" element={<HomeDashboard />} />

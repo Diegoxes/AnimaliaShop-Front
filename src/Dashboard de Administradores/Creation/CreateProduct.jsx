@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import validation from "./validationProduct"; 
 import "tailwindcss/tailwind.css";
 import { Link } from "react-router-dom";
@@ -43,11 +43,11 @@ const CrearProducto = () => {
   }, [formData]);
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value
+    });
+    
     setFormHasErrors(false);
   };
 
@@ -139,7 +139,7 @@ const CrearProducto = () => {
  
  
   return (
-    <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700">
+ <div className="max-w-md mx-auto bg-white p-6 rounded-md shadow-md mt-8 border border-gray-700">
       <h2 className="text-2xl font-bold mb-4 text-center text-blue-500">
         Creación de Nuevo Producto
       </h2>
@@ -266,8 +266,8 @@ const CrearProducto = () => {
           type="submit"
           className={`p-2 mt-4 w-full rounded ${
             formHasErrors
-              ? "button-error cursor-not-allowed"
-              : "bg-blue-500 text-white hover:bg-blue-700 cursor-pointer"
+            ? 'bg-red-500 text-white cursor-not-allowed'
+            : 'bg-blue-500 text-white hover:bg-blue-700 cursor-pointer'
           }`}
           disabled={formHasErrors}
         >
