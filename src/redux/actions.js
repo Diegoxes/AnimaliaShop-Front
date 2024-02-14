@@ -16,7 +16,7 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 
-const URL = "http://localhost:3001";
+const URL = "https://animaliashop-backend.onrender.com";
 
 export const getProductos = () => async (dispatch) => {
   try {
