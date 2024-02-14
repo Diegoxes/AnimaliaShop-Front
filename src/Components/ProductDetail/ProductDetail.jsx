@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDetail } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./Detail.module.css";
 import CartContext from "../../context/CartContext";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -10,6 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const DetailProduct = () => {
   const { id } = useParams();
   const { isAuthenticated, user } = useAuth0();
+  const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const { agregarAlCarrito } = useContext(CartContext);
   const productDetail = useSelector((state) => state.productDetail);
@@ -32,14 +33,20 @@ const DetailProduct = () => {
           quantity,
         };
         await agregarAlCarrito(productDetail, quantity);
-        const { data } = await axios.post("http://localhost:3001/cart", item);
-        console.log(data);
+        await axios.post("http://localhost:3001/cart", item);
+        console.log(item);
       } catch (error) {
         throw new Error("Error en el pedido al back " + error.message);
       }
     } else {
       await agregarAlCarrito(productDetail, quantity);
     }
+  };
+
+  const handleBuyNow = async (e) => {
+    e.preventDefault();
+    agregarAlCarrito(productDetail, quantity);
+    navigate("/carrito");
   };
 
   const handleIncrement = () => {
@@ -111,7 +118,8 @@ const DetailProduct = () => {
           ) : (
             <button
               type='submit'
-              className='flex w-full items-center justify-center rounded-md border border-transparent bg-green-500 px-8 py-3 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2'>
+              className='flex w-full items-center justify-center rounded-md border border-transparent bg-green-500 px-8 py-3 text-base font-medium text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2'
+              onClick={handleBuyNow}>
               Buy Now
             </button>
           )}

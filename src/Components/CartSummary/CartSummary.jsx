@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-const CartSummary = ({ subtotal, total, mostrarCheckout }) => {
+const CartSummary = ({ subtotal, total, mostrarCheckout, handleBuy }) => {
   const { isAuthenticated, user } = useAuth0();
   return (
     <div className='mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3'>
@@ -24,7 +24,9 @@ const CartSummary = ({ subtotal, total, mostrarCheckout }) => {
 
       {isAuthenticated && mostrarCheckout ? (
         total !== 0 ? (
-          <button className='mt-6 w-full rounded-md bg-green-500 py-1.5 font-medium text-blue-50 hover:bg:bg-green-600'>
+          <button
+            onClick={handleBuy}
+            className='mt-6 w-full rounded-md bg-green-500 py-1.5 font-medium text-blue-50 hover:bg:bg-green-600'>
             Check out
           </button>
         ) : (

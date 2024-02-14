@@ -6,6 +6,7 @@ import { getCart } from "../../redux/actions";
 import axios from "axios";
 import CartItem from "../../Components/CartItem/CartItem";
 import CartSummary from "../../Components/CartSummary/CartSummary";
+import { loadStripe } from "@stripe/stripe-js";
 
 const ShoppingCart = () => {
   const { isAuthenticated, user } = useAuth0();
@@ -21,20 +22,21 @@ const ShoppingCart = () => {
     precioFinalIva,
   } = useContext(CartContext);
   const isCart = useSelector((state) => state.carrito);
+  const stripePromise = loadStripe(
+    "pk_test_51OjXz3D35VXiJ0k2efkioGRvAVZmrQskKZhpKrYVYVlVAKQorWNjGD3UD1iusLII3LZ1bhdaauWgXWLZaxgITG9D00I7JAuO4c"
+  );
 
   const URL = "http://localhost:3001";
-
-  console.log(isCart);
 
   let cartItems = [];
   if (isAuthenticated && isCart && isCart.Products) {
     cartItems = isCart.Products;
   }
 
-  console.log(cartItems);
-
   const productDetail = cartItems.map((producto) => {
     const { Cart, ...restoDelProducto } = producto;
+    console.log(Cart);
+
     return { productDetail: restoDelProducto, quantity: Cart.quantity };
   });
 
@@ -49,7 +51,7 @@ const ShoppingCart = () => {
 
   useEffect(() => {
     if (isAuthenticated && user && user.email) {
-      const email = user.email;
+      const { email } = user;
       dispatch(getCart(email));
     }
   }, [dispatch, isAuthenticated, user]);
@@ -63,7 +65,7 @@ const ShoppingCart = () => {
         all,
       };
       await vaciarCarrito();
-      await axios.put(`${URL}/cart`, emptyCart);
+      await axios.delete(`${URL}/cart`, { data: emptyCart });
     } else {
       vaciarCarrito();
     }
@@ -79,7 +81,7 @@ const ShoppingCart = () => {
         all,
       };
       await eliminarDelCarrito(id);
-      await axios.delete(`${URL}/cart`, deleteItem);
+      await axios.delete(`${URL}/cart`, { data: deleteItem });
     } else {
       eliminarDelCarrito(id);
     }
@@ -95,6 +97,41 @@ const ShoppingCart = () => {
 
   const subtotal = precioTotal();
   const total = precioFinalIva();
+
+  const handleBuy = async () => {
+    console.log("Objeto enviado al backend: ", {
+      cartItems: carrito,
+    });
+    try {
+      const response = await fetch("http://localhost:3001/crear-pago", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cartItems: carrito.map((item) => ({
+            productId: item.id,
+            quantity: item.quantity,
+          })),
+        }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error en la solicitud:", errorData.error);
+      } else {
+        const session = await response.json();
+        console.log("sesion creada:", session);
+
+        const stripe = await stripePromise;
+        await stripe.redirectToCheckout({
+          sessionId: session.id,
+        });
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    }
+  };
+  console.log();
 
   return (
     <div className='h-auto bg-white py-10'>
@@ -122,7 +159,12 @@ const ShoppingCart = () => {
             />
           ))}
         </div>
-        <CartSummary subtotal={subtotal} total={total} mostrarCheckout={true} />
+        <CartSummary
+          subtotal={subtotal}
+          total={total}
+          mostrarCheckout={true}
+          handleBuy={handleBuy}
+        />
       </div>
     </div>
   );

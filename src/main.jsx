@@ -1,148 +1,25 @@
-<<<<<<< HEAD
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Provider } from "react-redux";
-import { CartProvider } from "./context/CartContext.jsx";
-import Tienda from "./page/Tienda/Tienda";
-import store from "./redux/store.js";
-import { Auth0Provider } from "@auth0/auth0-react";
-import Home from "./page/Home/Home";
-import Layout from "./Components/Layout/Layout";
-import CrearProducto from "./Components/Forms/CreateProduct";
-import CreateCategory from "./Components/Forms/CreateCategory";
-import About from "./Components/About/About";
-import Carrito from "./Components/Carrito/Carrito";
-import DetailProduct from "./Components/ProductDetail/ProductDetail";
-import { Login } from "./Components/Login/Login";
-import ShoppingCart from "./page/ShoppingCart/ShoppingCart.jsx";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "/tienda",
-        element: <Tienda />,
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
-      {
-        path: "/login",
-        element: <Login />,
-      },
-      { path: "/carrito", element: <ShoppingCart /> },
-      {
-        path: "/DetailProduct/:id",
-        element: <DetailProduct />,
-      },
-      {
-        path: "/formularioProducto",
-        element: <CrearProducto />,
-      },
-      {
-        path: "/formularioCategoria",
-        element: <CreateCategory />,
-      },
-    ],
-  },
-]);
-=======
 //  React, hooks y componentes de React
-import React, { useState, useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-
-// componentes y páginas necesarias
-import Home from './page/Home/Home';
-import Layout from './Components/Layout/Layout';
-import {Login} from './Components/Login/Login';
-import Tienda from './page/Tienda/Tienda';
-import About from './Components/About/About';
-import Carrito from './Components/Carrito/Carrito';
-import DetailProduct from './Components/ProductDetail/ProductDetail';
-import DashboardRoutes from './dashboardRoutes.jsx';
-import Banned from './Dashboard de Administradores/banned';
-import { useAuth0 } from '@auth0/auth0-react';
->>>>>>> 89e00314e464929a7249d10dfda92aecb88887da
-
-const App = () => {
-  const { isAuthenticated, isLoading, user } = useAuth0();
-  const [isBanned, setIsBanned] = useState(false);
-
-  useEffect(() => {
-    const checkBannedStatus = async () => {
-      
-      if (isAuthenticated && user) {
-        try {
-          const response = await fetch('http://localhost:3001/users');
-          const users = await response.json();       
-          const authenticatedUser = users.find(u => u.email === user.email);
-          setIsBanned(authenticatedUser && authenticatedUser.isBanned);
-        } catch (error) {
-          console.error('Error checking banned status:', error);
-        }
-      }
-    };
-
-    checkBannedStatus();
-  }, [isAuthenticated, user]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <Router>
-      {isBanned ? (
-        <Routes>
-          <Route path="/" element={<Banned />} />
-        </Routes>
-      ) : (
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/tienda" element={<Tienda />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/carrito" element={<Carrito />} />
-            <Route path="/DetailProduct/:id" element={<DetailProduct />} />
-            <Route path="/dashboard/*" element={<DashboardRoutes />} />
-          </Route>
-        </Routes>
-      )}
-    </Router>
-  );
-};
+import React from "react";
+import ReactDOM from "react-dom";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { CartProvider } from "./context/CartContext.jsx";
+import App from "./App.jsx";
 
 ReactDOM.render(
   <Auth0Provider
-    domain="dev-8yon50uzqfmitkhc.us.auth0.com"
-    clientId="3iFSloLFrYZXKOOuPTkfepY4zNhNByI3"
-    redirectUri={window.location.origin}
-  >
+    domain='dev-8yon50uzqfmitkhc.us.auth0.com'
+    clientId='3iFSloLFrYZXKOOuPTkfepY4zNhNByI3'
+    redirectUri={window.location.origin}>
     <Provider store={store}>
-<<<<<<< HEAD
       <CartProvider>
-        <RouterProvider router={router} />
+        <App />
       </CartProvider>
-=======
       <App />
->>>>>>> 89e00314e464929a7249d10dfda92aecb88887da
     </Provider>
   </Auth0Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // verification comment for deploy 3
