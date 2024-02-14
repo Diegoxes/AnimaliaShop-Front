@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReviews } from '../../redux/actions';
+// import { fetchReviews } from '../../redux/actions';
 import Review from './Review';
 
 const ReviewList = () => {
@@ -41,7 +41,7 @@ const ReviewList = () => {
         </div>
         
         <section className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 lg:grid-cols-2 xl:grid-cols-3 bg-white">
-          {displayedReviews.map((review, index) => (
+          {displayedReviews?.map((review, index) => (
             <div key={index}>
               <Review
                 key={review?.id}

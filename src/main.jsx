@@ -7,13 +7,13 @@ import Tienda from "./page/Tienda/Tienda";
 import store from "./redux/store.js";
 import { Auth0Provider } from "@auth0/auth0-react";
 import Home from "./page/Home/Home";
-import Layout from "./Components/Layout/Layout";
-import CrearProducto from "./Components/Forms/CreateProduct";
-import CreateCategory from "./Components/Forms/CreateCategory";
-import About from "./Components/About/About";
-import Carrito from "./Components/Carrito/Carrito";
-import DetailProduct from "./Components/ProductDetail/ProductDetail";
-import { Login } from "./Components/Login/Login";
+import Layout from "./components/Layout/Layout";
+import CrearProducto from "./components/Forms/CreateProduct";
+import CreateCategory from "./components/Forms/CreateCategory";
+import About from "./components/About/About";
+import Carrito from "./components/Carrito/Carrito";
+import DetailProduct from "./components/ProductDetail/ProductDetail";
+import { Login } from "./components/Login/Login";
 
 const router = createBrowserRouter([
   {

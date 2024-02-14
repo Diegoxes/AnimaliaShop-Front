@@ -1,6 +1,6 @@
 import React from "react";
 import InterestProducts from "../../Components/InterestProducts/InterestProducts";
-import ReviewList from "../../components/testimonios/ReviewList";
+// import ReviewList from "../../components/testimonios/ReviewList";
 import InputReview from "../../components/testimonios/InputReview";
 
 const Home = () => {
@@ -11,7 +11,7 @@ const Home = () => {
       <div>
         <div className="mb-10">
         <div className="mt-4">
-          <ReviewList />
+          {/* <ReviewList /> */}
         </div>
         <div className="mb-4">
           <InputReview />

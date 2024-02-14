@@ -13,8 +13,9 @@ import {
   REMOVE_ONE_FROM_CART,
   SET_INITIAL_CART,
   CREATE_USER,
-  SET_REVIEWS,
-  ADD_REVIEW
+  // SET_REVIEWS,
+  ADD_REVIEW,
+  REVIEW_ERROR
 } from "./actionTypes";
 
 const URL = "http://localhost:3001";
@@ -224,46 +225,78 @@ export const createUser = (email, name, picture) => {
 };
 
 //////////// R E V I E W //////////////////
+export const postReview = (reviewData) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://localhost:3001/upreview', {
+      userId: reviewData.userId,
+      content: reviewData.content,
+      score: reviewData.score,
+    });
+
+    const data = response.data;
+
+    if (response.status === 201) {
+      console.log('Revisión enviada exitosamente:', data);
+    } else {
+      console.error('Error al enviar la revisión:', data.message);
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error);
+  }
+};
+
+
+
+
+
+
+
+
 // Acción para establecer las revisiones en el estado
-export const setReviews = (reviews) => ({
-  type: SET_REVIEWS,
-  payload: reviews,
-});
+// export const setReviews = (reviews) => ({
+//   type: SET_REVIEWS,
+//   payload: reviews,
+// });
 
-// Acción para agregar una revisión al estado
-export const addReview = (review) => ({
-  type: ADD_REVIEW,
-  payload: review,
-});
+// // Acción para agregar una revisión al estado
+// export const addReview = (review) => ({
+//   type: ADD_REVIEW,
+//   payload: review,
+// });
 
-// Acción para obtener todas las revisiones desde el servidor
-export const fetchReviews = () => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.get(`${URL}/review`);
-      console.log('Complete response from server:', response);
-      if (response.data) {
-        dispatch(setReviews(response.data));
-      } else {
-        // console.error('Invalid response format:', response);
-      }
-    } catch (error) {
-      console.error('Error fetching reviews:', error);
-    }
-  };
-};
+// // Acción para obtener todas las revisiones desde el servidor
+// export const fetchReviews = () => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.get(`${URL}/review`);
+//       console.log('Complete response from server:', response);
+//       if (response.data) {
+//         dispatch(setReviews(response.data));
+//       } else {
+//         // console.error('Invalid response format:', response);
+//       }
+//     } catch (error) {
+//       console.error('Error fetching reviews:', error);
+//     }
+//   };
+// };
 
-// Acción para enviar una nueva revisión al servidor
-export const postReview = (reviewData) => {
-  return async (dispatch) => {
-    try {
-      const response = await axios.post(`${URL}/upreview`, reviewData);
-      dispatch(addReview(response.data.review));
-    } catch (error) {
-      console.error('Error al enviar la revisión:', error);
-    }
-  };
-};
+// // Acción para enviar una nueva revisión al servidor
+// export const postReview = (reviewData) => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.post(`${URL}/upreview`, reviewData);
+//       dispatch(addReview(response.data.review));
+//     } catch (error) {
+//       dispatch(reviewError(error.message)); // Aquí utilizamos la acción reviewError
+//       console.error('Error al enviar la revisión:', error);
+//     }
+//   };
+// };
 
+// export const reviewError = (error) => ({
+//   type: REVIEW_ERROR,
+//   payload: error,
+// });
 
 ///////////////////////////////////////////
