@@ -62,7 +62,6 @@ const App = () => {
             <Route path='/DetailProduct/:id' element={<DetailProduct />} />
             <Route path='/dashboard/*' element={<DashboardRoutes />} />
             <Route path='/failedPayment' element={<FailedPayment />} />
-            <Route path='/checkout-form' element={<CheckoutForm />} />
             {isAuthenticated && (
               <Route
                 path='/successfullpayment'
