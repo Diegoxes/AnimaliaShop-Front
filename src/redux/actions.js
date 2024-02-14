@@ -16,7 +16,8 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 
-const URL = "https://animaliashop-backend.onrender.com";
+const URL = "http://localhost:3001";
+// const URL = "https://animaliashop-backend.onrender.com";
 
 export const getProductos = () => async (dispatch) => {
   try {
@@ -147,46 +148,46 @@ export const sortProductsByPrice = (order) => (dispatch, getState) => {
 };
 //////////////////////////////////////////////////////////////////////////////////////7
 
-// Actions para el carrito
+// // Actions para el carrito
 
-export const addToCart = (id) => async (dispatch) => {
-  try {
-    return dispatch({
-      type: ADD_TO_CART,
-      payload: id,
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+// export const addToCart = (id) => async (dispatch) => {
+//   try {
+//     return dispatch({
+//       type: ADD_TO_CART,
+//       payload: id,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
-export const deleteFromCart =
-  (id, all = false) =>
-  (dispatch) => {
-    try {
-      {
-        all
-          ? dispatch({
-              type: REMOVE_ALL_FROM_CART,
-              payload: id,
-            })
-          : dispatch({
-              type: REMOVE_ONE_FROM_CART,
-              payload: id,
-            });
-      }
-    } catch (error) {
-      console.log(error.response.data.message);
-    }
-  };
+// export const deleteFromCart =
+//   (id, all = false) =>
+//   (dispatch) => {
+//     try {
+//       {
+//         all
+//           ? dispatch({
+//               type: REMOVE_ALL_FROM_CART,
+//               payload: id,
+//             })
+//           : dispatch({
+//               type: REMOVE_ONE_FROM_CART,
+//               payload: id,
+//             });
+//       }
+//     } catch (error) {
+//       console.log(error.response.data.message);
+//     }
+//   };
 
-// Guardando el estado actual del carrito
-export const setInitialCart = (cart) => (dispatch) => {
-  return dispatch({
-    type: SET_INITIAL_CART,
-    payload: cart,
-  });
-};
+// // Guardando el estado actual del carrito
+// export const setInitialCart = (cart) => (dispatch) => {
+//   return dispatch({
+//     type: SET_INITIAL_CART,
+//     payload: cart,
+//   });
+// };
 
 //CREACION DE USUARIOS
 // export const createUser = (email) => {

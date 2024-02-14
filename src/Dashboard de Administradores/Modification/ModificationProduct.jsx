@@ -6,8 +6,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const ModificationProduct = () => {
-  // const URL = "http://localhost:3001"
-  const URL = "https://animaliashop-backend.onrender.com";
+  const URL = "http://localhost:3001";
+  // const URL = "https://animaliashop-backend.onrender.com";
 
   const { id } = useParams();
 

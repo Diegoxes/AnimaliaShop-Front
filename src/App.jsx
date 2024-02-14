@@ -8,7 +8,6 @@ import Layout from "./Components/Layout/Layout";
 import { Login } from "./Components/Login/Login";
 import Tienda from "./page/Tienda/Tienda";
 import About from "./Components/About/About";
-import Carrito from "./Components/Carrito/Carrito";
 import DetailProduct from "./Components/ProductDetail/ProductDetail";
 import DashboardRoutes from "./dashboardRoutes.jsx";
 import Banned from "./Dashboard de Administradores/banned";
@@ -19,11 +18,14 @@ const App = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
   const [isBanned, setIsBanned] = useState(false);
 
+  const URL = "http://localhost:3001";
+  // const URL = "https://animaliashop-backend.onrender.com";
+
   useEffect(() => {
     const checkBannedStatus = async () => {
       if (isAuthenticated && user) {
         try {
-          const response = await fetch("http://localhost:3001/users");
+          const response = await fetch(`${URL}/users`);
           const users = await response.json();
           const authenticatedUser = users.find((u) => u.email === user.email);
           setIsBanned(authenticatedUser && authenticatedUser.isBanned);

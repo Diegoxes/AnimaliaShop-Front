@@ -6,9 +6,7 @@ const AdminUser = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch(
-        "https://animaliashop-backend.onrender.com/users"
-      );
+      const response = await fetch("http://localhost:3001/users");
       const data = await response.json();
 
       setUsers(data);

@@ -2,7 +2,7 @@ import React from "react";
 import InterestProducts from "../../Components/InterestProducts/InterestProducts";
 
 import Footer from "../../Components/Footer/Footer";
-import ReviewList from "../../components/testimonios/ReviewList";
+import ReviewList from "../../Components/testimonios/ReviewList";
 import InputReview from "../../Components/testimonios/InputReview";
 
 const Home = () => {

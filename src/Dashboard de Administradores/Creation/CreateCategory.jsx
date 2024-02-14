@@ -9,8 +9,8 @@ const CreateCategory = () => {
     image: null,
   });
 
-  // const URL = 'http://localhost:3001'
-  const URL = "https://animaliashop-backend.onrender.com";
+  const URL = "http://localhost:3001";
+  // const URL = "https://animaliashop-backend.onrender.com";
 
   const [formErrors, setFormErrors] = useState({});
   const [formHasErrors, setFormHasErrors] = useState(false);

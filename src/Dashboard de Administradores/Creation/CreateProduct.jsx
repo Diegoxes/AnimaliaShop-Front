@@ -4,8 +4,8 @@ import "tailwindcss/tailwind.css";
 import { Link } from "react-router-dom";
 
 const CrearProducto = () => {
-  // const URL = 'http://localhost:3001'
-  const URL = "https://animaliashop-backend.onrender.com/";
+  const URL = "http://localhost:3001";
+  // const URL = "https://animaliashop-backend.onrender.com/";
 
   const [formData, setFormData] = useState({
     title: "",

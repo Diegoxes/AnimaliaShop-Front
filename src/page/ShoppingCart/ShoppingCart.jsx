@@ -22,11 +22,13 @@ const ShoppingCart = () => {
     precioFinalIva,
   } = useContext(CartContext);
   const isCart = useSelector((state) => state.carrito);
+
   const stripePromise = loadStripe(
     "pk_test_51OjXz3D35VXiJ0k2efkioGRvAVZmrQskKZhpKrYVYVlVAKQorWNjGD3UD1iusLII3LZ1bhdaauWgXWLZaxgITG9D00I7JAuO4c"
   );
 
   const URL = "http://localhost:3001";
+  // const URL = "https://animaliashop-backend.onrender.com";
 
   let cartItems = [];
   if (isAuthenticated && isCart && isCart.Products) {
@@ -103,7 +105,7 @@ const ShoppingCart = () => {
       cartItems: carrito,
     });
     try {
-      const response = await fetch("http://localhost:3001/crear-pago", {
+      const response = await fetch(`${URL}/crear-pago`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

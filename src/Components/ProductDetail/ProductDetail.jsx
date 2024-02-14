@@ -13,6 +13,7 @@ const DetailProduct = () => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const { agregarAlCarrito } = useContext(CartContext);
+  console.log(agregarAlCarrito);
   const productDetail = useSelector((state) => state.productDetail);
   const dispatch = useDispatch();
 

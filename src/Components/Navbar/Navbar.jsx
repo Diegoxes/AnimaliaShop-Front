@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { BiShoppingBag } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Login } from "../Login/Login";
 import Logout from "../Logout/Logout";
-import { useSelector } from "react-redux";
-import Carrito from "../Carrito/Carrito";
 
 function Navbar() {
   const { isAuthenticated } = useAuth0();
-  const [showModal, setShowModal] = useState(false);
-  const carrito = useSelector((state) => state.carrito);
   return (
     <header className=' shadow mb-2'>
       <div className='relative flex max-w-screen-xl flex-col overflow-hidden px-4 py-4 md:mx-auto md:flex-row md:items-center'>

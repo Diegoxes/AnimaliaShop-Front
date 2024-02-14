@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 
-const CartContext = createContext();
+const CartContext = createContext({
+  carrito: [],
+});
 
 const carritoInicial = JSON.parse(localStorage.getItem("carrito")) || [];
 
