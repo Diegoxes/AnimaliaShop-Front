@@ -11,7 +11,6 @@ import {
   REMOVE_ONE_FROM_CART,
   SET_INITIAL_CART,
   CREATE_USER,
-  GET_CART,
   SET_REVIEWS,
   ADD_REVIEW,
 } from "./actionTypes";
@@ -228,14 +227,14 @@ export const createUser = (email, name, picture) => {
   };
 };
 
-export const sendCartinBack = (productos) => async (dispatch) => {
-  const response = await axios.post("/createOrder", productos);
-  console.log(response);
+// export const sendCartinBack = (productos) => async (dispatch) => {
+//   const response = await axios.post("/createOrder", productos);
+//   console.log(response);
 
-  if (response.status === 200) {
-    console.log("Carrito enviado con exito al backend");
-  }
-};
+//   if (response.status === 200) {
+//     console.log("Carrito enviado con exito al backend");
+//   }
+// };
 
 export const getCart = (email) => async (dispatch) => {
   try {

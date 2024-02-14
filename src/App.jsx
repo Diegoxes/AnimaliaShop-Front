@@ -1,24 +1,19 @@
+//  React, hooks y componentes de React
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+
 // componentes y páginas necesarias
 import Home from "./page/Home/Home";
 import Layout from "./Components/Layout/Layout";
 import { Login } from "./Components/Login/Login";
 import Tienda from "./page/Tienda/Tienda";
 import About from "./Components/About/About";
+import Carrito from "./Components/Carrito/Carrito";
 import DetailProduct from "./Components/ProductDetail/ProductDetail";
 import DashboardRoutes from "./dashboardRoutes.jsx";
 import Banned from "./Dashboard de Administradores/banned";
 import { useAuth0 } from "@auth0/auth0-react";
 import ShoppingCart from "./page/ShoppingCart/ShoppingCart.jsx";
-import SuccessfullPayment from "./page/successfullPayment/successfullPayment.jsx";
-import FailedPayment from "./page/failedPayment/failedPayment.jsx";
 
 const App = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -46,32 +41,24 @@ const App = () => {
   }
 
   return (
-    <Router>
+    <Routes>
       {isBanned ? (
-        <Routes>
-          <Route path='/' element={<Banned />} />
-        </Routes>
+        <Route path='/' element={<Banned />} />
       ) : (
-        <Routes>
-          <Route path='/' element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path='/tienda' element={<Tienda />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/carrito' element={<ShoppingCart />} />
-            <Route path='/DetailProduct/:id' element={<DetailProduct />} />
-            <Route path='/dashboard/*' element={<DashboardRoutes />} />
-            <Route path='/failedPayment' element={<FailedPayment />} />
-            {isAuthenticated && (
-              <Route
-                path='/successfullpayment'
-                element={<SuccessfullPayment />}
-              />
-            )}
-          </Route>
-        </Routes>
+        <Route path='/' element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path='/tienda'
+            element={isBanned ? <Navigate to='/' /> : <Tienda />}
+          />
+          <Route path='/about' element={<About />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/carrito' element={<ShoppingCart />} />
+          <Route path='/DetailProduct/:id' element={<DetailProduct />} />
+          <Route path='/dashboard/*' element={<DashboardRoutes />} />
+        </Route>
       )}
-    </Router>
+    </Routes>
   );
 };
 

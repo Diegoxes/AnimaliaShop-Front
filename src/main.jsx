@@ -1,25 +1,20 @@
-//  React, hooks y componentes de React
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 import store from "./redux/store";
-import { CartProvider } from "./context/CartContext.jsx";
-import App from "./App.jsx";
+import App from "./App";
 
-ReactDOM.render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <Auth0Provider
     domain='dev-8yon50uzqfmitkhc.us.auth0.com'
     clientId='3iFSloLFrYZXKOOuPTkfepY4zNhNByI3'
     redirectUri={window.location.origin}>
     <Provider store={store}>
-      <CartProvider>
+      <BrowserRouter>
         <App />
-      </CartProvider>
-      <App />
+      </BrowserRouter>
     </Provider>
-  </Auth0Provider>,
-  document.getElementById("root")
+  </Auth0Provider>
 );
-
-// verification comment for deploy 3
