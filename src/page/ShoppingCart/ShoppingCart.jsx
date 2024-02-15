@@ -22,11 +22,13 @@ const ShoppingCart = () => {
     precioFinalIva,
   } = useContext(CartContext);
   const isCart = useSelector((state) => state.carrito);
+
+  const URL = "https://animaliashop-backend.onrender.com";
+  // const URL = "http://localhost:3001";
+
   const stripePromise = loadStripe(
     "pk_test_51OjXz3D35VXiJ0k2efkioGRvAVZmrQskKZhpKrYVYVlVAKQorWNjGD3UD1iusLII3LZ1bhdaauWgXWLZaxgITG9D00I7JAuO4c"
   );
-
-  const URL = "https://animaliashop-backend.onrender.com";
 
   let cartItems = [];
   if (isAuthenticated && isCart && isCart.Products) {
@@ -99,39 +101,34 @@ const ShoppingCart = () => {
   const total = precioFinalIva();
 
   const handleBuy = async () => {
-    console.log("Objeto enviado al backend: ", {
-      cartItems: carrito,
-    });
     try {
-      const response = await fetch("http://localhost:3001/crear-pago", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cartItems: carrito.map((item) => ({
-            productId: item.id,
-            quantity: item.quantity,
-          })),
-        }),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("Error en la solicitud:", errorData.error);
-      } else {
-        const session = await response.json();
-        console.log("sesion creada:", session);
+      const stripe = await stripePromise;
 
-        const stripe = await stripePromise;
-        await stripe.redirectToCheckout({
-          sessionId: session.id,
-        });
+      const body = {
+        products: carrito,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+      };
+      const response = await fetch(`${URL}/create-checkout-session`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+
+      const session = await response.json();
+
+      const result = stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+
+      if (result.error) {
+        console.log(result.error);
       }
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      console.log("Error Encontrado: ", error);
     }
   };
-  console.log();
 
   return (
     <div className='h-auto bg-white py-10'>
