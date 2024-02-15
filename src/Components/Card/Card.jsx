@@ -7,7 +7,7 @@ const Card = ({ id, title, price, image, category }) => {
   return (
     <div
       key={id}
-      className="group my-10 flex w-full flex-col overflow-hidden rounded-lg border border-black-100 bg-gradient-to-b from-yellow-400 to-gray-600 shadow-md">
+      className='group my-10 flex w-full flex-col overflow-hidden rounded-lg border border-black-100 bg-gradient-to-b from-yellow-400 to-gray-600 shadow-md'>
       <Link
         className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'
         to={`/DetailProduct/${id}`}>
@@ -34,13 +34,6 @@ const Card = ({ id, title, price, image, category }) => {
           <BiDetail className='text-4xl pr-2' />
 
           <span className='text-white uppercase'>Ver Detalles</span>
-        </Link>
-
-        <Link
-          to='/carrito'
-          className='flex items-center justify-center rounded-md  px-5 py-2.5 text-center text-sm font-medium text-white bg-amber-900 hover:bg-amber-700 focus:outline-none focus:ring-4 focus:ring-blue-300'>
-          <FaCartArrowDown className='text-2xl' />
-          <span className='text-white uppercase pl-3'>Agregar Al Carrito</span>
         </Link>
       </div>
     </div>

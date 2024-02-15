@@ -14,6 +14,8 @@ import DashboardRoutes from "./dashboardRoutes.jsx";
 import Banned from "./Dashboard de Administradores/banned";
 import { useAuth0 } from "@auth0/auth0-react";
 import ShoppingCart from "./page/ShoppingCart/ShoppingCart.jsx";
+import Success from "./page/success/success.jsx";
+import Cancel from "./page/cancel/cancel.jsx";
 
 const App = () => {
   const { isAuthenticated, isLoading, user } = useAuth0();
@@ -23,7 +25,9 @@ const App = () => {
     const checkBannedStatus = async () => {
       if (isAuthenticated && user) {
         try {
-          const response = await fetch("http://localhost:3001/users");
+          const response = await fetch(
+            "https://animaliashop-backend.onrender.com/users"
+          );
           const users = await response.json();
           const authenticatedUser = users.find((u) => u.email === user.email);
           setIsBanned(authenticatedUser && authenticatedUser.isBanned);
@@ -56,6 +60,10 @@ const App = () => {
           <Route path='/carrito' element={<ShoppingCart />} />
           <Route path='/DetailProduct/:id' element={<DetailProduct />} />
           <Route path='/dashboard/*' element={<DashboardRoutes />} />
+          <Route path='/cancel' element={<Cancel />} />
+          {isAuthenticated && user?.email && (
+            <Route path='/success' element={<Success />} />
+          )}
         </Route>
       )}
     </Routes>

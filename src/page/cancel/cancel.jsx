@@ -1,6 +1,6 @@
 import React from "react";
 
-const FailedPayment = () => {
+const Cancel = () => {
   return (
     <div>
       <h2>failedPayment</h2>
@@ -8,4 +8,4 @@ const FailedPayment = () => {
   );
 };
 
-export default FailedPayment;
+export default Cancel;
