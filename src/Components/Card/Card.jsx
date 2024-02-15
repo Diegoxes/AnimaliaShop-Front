@@ -7,7 +7,7 @@ const Card = ({ id, title, price, image, category }) => {
   return (
     <div
       key={id}
-      className='group my-10 flex w-full flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-md'>
+      className="group my-10 flex w-full flex-col overflow-hidden rounded-lg border border-black-100 bg-gradient-to-b from-yellow-400 to-gray-600 shadow-md">
       <Link
         className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'
         to={`/DetailProduct/${id}`}>
