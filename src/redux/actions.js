@@ -13,6 +13,7 @@ import {
   CREATE_USER,
   SET_REVIEWS,
   ADD_REVIEW,
+  GET_CART,
 } from "./actionTypes";
 import axios from "axios";
 

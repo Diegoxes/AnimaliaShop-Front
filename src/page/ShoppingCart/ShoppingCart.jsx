@@ -23,8 +23,8 @@ const ShoppingCart = () => {
   } = useContext(CartContext);
   const isCart = useSelector((state) => state.carrito);
 
-  // const URL = "https://animaliashop-backend.onrender.com";
-  const URL = "http://localhost:3001";
+  const URL = "https://animaliashop-backend.onrender.com";
+  // const URL = "http://localhost:3001";
 
   const stripePromise = loadStripe(
     "pk_test_51OjXz3D35VXiJ0k2efkioGRvAVZmrQskKZhpKrYVYVlVAKQorWNjGD3UD1iusLII3LZ1bhdaauWgXWLZaxgITG9D00I7JAuO4c"
